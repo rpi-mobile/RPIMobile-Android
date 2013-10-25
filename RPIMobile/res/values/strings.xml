@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RPIMobile</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Side Menu Tutorial</string>
+    <string name="Fragment1">This is Fragment 1</string>
+    <string name="Fragment2">This is Fragment 2</string>
+    <string name="Fragment3">This is Fragment 3</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string-array name="temperatureOptions">
+        <item >Fahrenheit</item>
+        <item >Celsius</item>
+        <item >Kelvin</item>
+    </string-array>
+    <string-array name="temperatureValues">
+        <item >f</item>
+        <item >c</item>
+        <item >k</item>
+    </string-array>
+        <string-array name="listOptions">
+        <item >Main Menu</item>
+        <item >Weather</item>
+        <item >Laundry</item>
+        <item >Twitter</item>
+        <item >Althletics</item>
+        <item >Events</item>
+    </string-array>
+    <string-array name="listValues">
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+        <item >4</item>
+        <item >5</item>
+    </string-array>
+</resources>

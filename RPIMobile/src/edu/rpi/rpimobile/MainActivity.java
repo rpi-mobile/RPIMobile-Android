@@ -21,7 +21,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.youtube.player.YouTubeIntents;
  
-//MainActivity. Holds the navagation drawer and the fragment frame
+//MainActivity. Holds the navigation drawer and the fragment frame
 public class MainActivity extends SherlockFragmentActivity {
  
     // Declare Variables to be used in this function
@@ -32,12 +32,12 @@ public class MainActivity extends SherlockFragmentActivity {
     private String actiontitle;
     private String[] title;
     private int[] icon;
-    private Fragment fragment1 = new Fragment1();
-    private Fragment fragment2 = new Fragment2();
-    private Fragment fragment3 = new Fragment3();
-    private Fragment fragment4 = new Fragment4();
-    private Fragment fragment5 = new Fragment5();
-    //private Fragment fragment6 = new Fragment6();
+    private Fragment weatherFragment = new WeatherFragment();  //Formerly Fragment1
+    private Fragment laundryFragment = new LaundryFragment();  //Formerly Fragment2
+    private Fragment twitterFragment = new TwitterFragment();  //Formerly Fragment3
+    private Fragment athleticsFragment = new AthleticsFragment();  //Formerly Fragment4
+    private Fragment eventsFragment = new EventsFragment();  //Formerly Fragment5
+    //private Fragment exampleFragment = new ExampleFragment();  //Formerly Fragment6
     
   //Initial function
     @Override
@@ -108,7 +108,7 @@ public class MainActivity extends SherlockFragmentActivity {
         
         logcat( "Loading screen: " + startupscreen);
         
-        //if the preference is to load the menu then open the navagation drawer
+        //if the preference is to load the menu then open the navigation drawer
         if (savedInstanceState == null) {
         	if(startupscreen==0){
             selectItem(0);
@@ -155,7 +155,7 @@ public class MainActivity extends SherlockFragmentActivity {
         }
         else if(item.getItemId() == R.id.action_settings){
         	//if the settings button is pressed then open the settings activity
-        	Intent intent = new Intent(MainActivity.this, PrefsActivity.class);
+        	Intent intent = new Intent("edu.rpi.rpimobile.PREFS");
         	startActivity(intent);
         }
       /*  else if(item.getIcon().equals(R.drawable.navigation_refresh)){
@@ -188,19 +188,19 @@ public class MainActivity extends SherlockFragmentActivity {
         // Locate Position
         switch (position) {
         case 0: //weather
-            ft.replace(R.id.content_frame, fragment1);
+            ft.replace(R.id.content_frame, weatherFragment);
             break;
         case 1: //laundry
-            ft.replace(R.id.content_frame, fragment2);
+            ft.replace(R.id.content_frame, laundryFragment);
             break;
         case 2: //twitter
-            ft.replace(R.id.content_frame, fragment3);
+            ft.replace(R.id.content_frame, twitterFragment);
             break;
         case 3: //athletics
-        	ft.replace(R.id.content_frame, fragment4);
+        	ft.replace(R.id.content_frame, athleticsFragment);
         	break;
         case 4: //Events
-        	ft.replace(R.id.content_frame, fragment5);
+        	ft.replace(R.id.content_frame, eventsFragment);
         	break;
         //these are the future items. They will be uncommented as they are implemented	
         	

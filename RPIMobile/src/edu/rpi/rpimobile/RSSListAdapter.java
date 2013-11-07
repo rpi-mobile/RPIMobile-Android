@@ -17,11 +17,11 @@ public class RSSListAdapter extends BaseAdapter {
  
     // Declare Variables
     Context context;
-    Fragment4 fragment;
+    AthleticsFragment fragment;
 	ArrayList<RSSObject> items;
     LayoutInflater inflater;
  
-    public RSSListAdapter(Context context, Fragment4 fragment_, ArrayList<RSSObject> items_) {
+    public RSSListAdapter(Context context, AthleticsFragment fragment_, ArrayList<RSSObject> items_) {
     	//Assign passed list and context to local variables in the class
         this.context = context;
         this.fragment = fragment_;

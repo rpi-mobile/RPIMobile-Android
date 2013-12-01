@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -37,6 +38,7 @@ public class MainActivity extends SherlockFragmentActivity {
     private Fragment twitterFragment = new TwitterFragment();  //Formerly Fragment3
     private Fragment athleticsFragment = new AthleticsFragment();  //Formerly Fragment4
     private Fragment eventsFragment = new EventsFragment();  //Formerly Fragment5
+    private Fragment mapFragment = new MapFragment();
     //private Fragment exampleFragment = new ExampleFragment();  //Formerly Fragment6
     
   //Initial function
@@ -51,14 +53,13 @@ public class MainActivity extends SherlockFragmentActivity {
         setContentView(R.layout.activity_main);
         
         // Generate title array
-        title = new String[] { "Weather", "Laundry","Twitter","Athletics","Events"/*,"Shuttles","Directory"
-        		,"TV Listings","Building Hours","Map"*/,"Videos" };
+        title = new String[] { "Weather", "Laundry","Twitter","Athletics","Events",/* "Shuttles","Directory"
+        		,"TV Listings","Building Hours", */"Map", "Videos" };
  
         // Generate icon array
-        icon = new int[] { R.drawable.ic_wm_weather, R.drawable.ic_wm_laundry, R.drawable.ic_m_twitter, R.drawable.ic_wm_athletics,
+        icon = new int[] { R.drawable.ic_wm_weather, R.drawable.ic_wm_laundry, R.drawable.ic_wm_twitter, R.drawable.ic_wm_athletics,
         		R.drawable.ic_wm_event,/* R.drawable.ic_wm_shuttle, R.drawable.ic_wm_directory, R.drawable.ic_wm_tv, 
-        		R.drawable.ic_wm_map, R.drawable.ic_wm_map,*/ R.drawable.ic_wm_video
-                };
+        		R.drawable.ic_wm_map, */ R.drawable.ic_wm_map, R.drawable.ic_wm_video };
  
         // Locate DrawerLayout in drawer_main.xml
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -202,24 +203,25 @@ public class MainActivity extends SherlockFragmentActivity {
         case 4: //Events
         	ft.replace(R.id.content_frame, eventsFragment);
         	break;
+        case 5: //Map
+        	//Toast.makeText(this, "Map selected", Toast.LENGTH_SHORT).show();
+        	ft.replace(R.id.content_frame, mapFragment);
+        	break;
         //these are the future items. They will be uncommented as they are implemented	
         	
- /*       case 5: //Shuttles
+ /*       case 7: //Shuttles
         	Toast.makeText(this, "Shuttles selected", Toast.LENGTH_SHORT).show();
         	break;
-        case 6: //Directory
+        case 8: //Directory
         	Toast.makeText(this, "Directory selected", Toast.LENGTH_SHORT).show();
         	break;
-        case 7: //TV Listings
+        case 9: //TV Listings
 	   		ft.replace(R.id.content_frame, fragment6);
         	break;
-        case 8: //Building Hours
+        case 10: //Building Hours
         	Toast.makeText(this, "Building Hours selected", Toast.LENGTH_SHORT).show();
-        	break;
-        case 9://Map
-        	Toast.makeText(this, "Map selected", Toast.LENGTH_SHORT).show();
-        	break; //*/
-        case 5: //Videos
+        	break; */
+        case 6: //Videos
         	//the Youtube feed just opens the external youtube application
         	Intent i = YouTubeIntents.createUserIntent(this, "rpirensselaer");
         	startActivity(i);
@@ -232,12 +234,7 @@ public class MainActivity extends SherlockFragmentActivity {
         // Close drawer
         mDrawerLayout.closeDrawer(mDrawerList);
         logcat( "Fragment Transaction finished");
-        switch(position){
-        case 2:
-        	
-            break;
         
-        }
     }
  
     @Override

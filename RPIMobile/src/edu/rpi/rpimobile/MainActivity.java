@@ -176,7 +176,7 @@ public class MainActivity extends SherlockFragmentActivity {
             selectItem(position);
             mDrawerList.setItemChecked(position, true);
             //if the item was the youtube feed then don't change the action bar title
-            if(position!=5) actiontitle = title[position];
+            if(position!=6) actiontitle = title[position];
             getSupportActionBar().setTitle(actiontitle);
         }
     }
@@ -203,6 +203,7 @@ public class MainActivity extends SherlockFragmentActivity {
         	break;
         case 5: //Map
         	//Toast.makeText(this, "Map selected", Toast.LENGTH_SHORT).show();
+        	// additional tag string argument is necessary for MapListAdapter transaction:
         	ft.replace(R.id.content_frame, mapFragment);
         	break;
         //these are the future items. They will be uncommented as they are implemented	

@@ -1,7 +1,7 @@
 /**
  * Filename: MapFragment.java
  * Author: Peter Piech
- * Date: 12/1/2013
+ * Date: 12/4/2013
  * Description: MapFragment class creates the ListView
  *              from which the user selects from all of
  *              the RPI campus locations to be shown on
@@ -79,9 +79,12 @@ public class MapFragment extends SherlockFragment
 			double currLong = cursor.getDouble(longCol);
 			places.add(new MapLocation(currName, currLati, currLong));		
 		}
+		
+		cursor.close();
+		locations_db.close();
 
 		ListView placesList = (ListView) rootView.findViewById(R.id.maplist);
-		listadapter = new MapListAdapter(this.getActivity(), places);
+		listadapter = new MapListAdapter(this.getActivity(), places, getSherlockActivity().getSupportFragmentManager());
 		placesList.setAdapter(listadapter);
 		
 		return rootView;

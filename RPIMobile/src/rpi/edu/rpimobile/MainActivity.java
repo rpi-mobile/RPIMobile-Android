@@ -37,6 +37,7 @@ public class MainActivity extends SherlockFragmentActivity {
     private Fragment athleticsFragment = new AthleticsFragment();  //Formerly Fragment4
     private Fragment eventsFragment = new EventsFragment();  //Formerly Fragment5
     private Fragment mapFragment = new MapFragment();
+    private Fragment yacsFragment = new yacsFragment();
     //private Fragment exampleFragment = new ExampleFragment();  //Formerly Fragment6
     
   //Initial function

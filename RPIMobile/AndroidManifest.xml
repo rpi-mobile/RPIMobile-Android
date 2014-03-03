@@ -4,10 +4,10 @@
     android:versionCode="5"
     android:versionName="0.8" >
 	
-<!--     Target Version 2.2 and up 		-->
+<!--     Target Version 2.3 and up 		-->
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:minSdkVersion="9"
+        android:targetSdkVersion="19" />
     
     <uses-feature
         android:glEsVersion="0x00020000"

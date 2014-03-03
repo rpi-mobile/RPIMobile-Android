@@ -6,6 +6,6 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/android-rss-master"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/actionbarsherlock440"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/actionbarsherlock"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

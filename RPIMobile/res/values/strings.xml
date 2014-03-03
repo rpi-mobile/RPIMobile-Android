@@ -28,6 +28,7 @@
         <item >Twitter</item>
         <item >Althletics</item>
         <item >Events</item>
+        <item >Map</item>
     </string-array>
     <string-array name="listValues">
         <item >0</item>
@@ -36,5 +37,6 @@
         <item >3</item>
         <item >4</item>
         <item >5</item>
+        <item >6</item>
     </string-array>
 </resources>

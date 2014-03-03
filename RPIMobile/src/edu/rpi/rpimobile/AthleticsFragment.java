@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.mcsoxford.rss.RSSItem;
 import org.mcsoxford.rss.RSSReader;
 import org.mcsoxford.rss.RSSReaderException;
 
-import rpi.edu.rpimobile.model.RSSObject;
+import edu.rpi.rpimobile.model.RSSObject;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;

@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import android.content.Context;
 import android.view.LayoutInflater;

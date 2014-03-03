@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="rpi.edu.rpimobile"
+    package="edu.rpi.rpimobile"
     android:versionCode="5"
     android:versionName="0.8" >
 	
@@ -36,7 +36,7 @@
         <!-- Release using the alexkarcherkeystore keystore
          Google Maps v2 API key below is for:
           SHA1 F6:3E:E3:E1:9C:33:C9:8C:80:2B:38:95:A3:79:AA:01:DA:FD:0E:C8
-          Package: rpi.edu.rpimobile
+          Package: edu.rpi.rpimobile
           -->
           <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
@@ -45,7 +45,7 @@
         
         <!-- Google Maps v2 API key below is for:
         SHA1: DE:D6:CF:EB:4F:E3:87:5F:CD:AA:8E:F9:C4:52:5D:B4:02:37:5F:40
-        Package: rpi.edu.rpimobile
+        Package: edu.rpi.rpimobile
         -->
         <!-- Release Only:
         <meta-data
@@ -55,7 +55,7 @@
         
         <!-- Google Maps v2 API key below is for:
         SHA1: 74:88:34:85:DC:9E:3A:FB:09:91:23:82:40:41:A5:66:2D:42:0A:BB
-        Package: rpi.edu.rpimobile
+        Package: edu.rpi.rpimobile
         -->
         <!-- Debug Only:
         <meta-data
@@ -63,7 +63,7 @@
     		android:value="AIzaSyBX5jsjiNB7ShkRkaAnomTfcq2b6h1VseI"/>
     	-->
         <activity
-            android:name="rpi.edu.rpimobile.MainActivity"
+            android:name="edu.rpi.rpimobile.MainActivity"
             android:label="@string/app_name" 
             android:configChanges="orientation"
             android:screenOrientation="portrait">
@@ -75,11 +75,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="rpi.edu.rpimobile.PrefsActivity"
+            android:name="edu.rpi.rpimobile.PrefsActivity"
             android:screenOrientation="portrait"
             >
             <intent-filter>
-                <action android:name="rpi.edu.rpimobile.PREFS" />
+                <action android:name="edu.rpi.rpimobile.PREFS" />
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

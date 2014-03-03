@@ -1,8 +1,8 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.util.ArrayList;
 
-import rpi.edu.rpimobile.model.Building;
+import edu.rpi.rpimobile.model.Building;
 
 import android.content.Context;
 import android.view.LayoutInflater;

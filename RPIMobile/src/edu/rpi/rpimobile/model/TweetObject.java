@@ -1,9 +1,9 @@
-package rpi.edu.rpimobile.model;
+package edu.rpi.rpimobile.model;
 
 import java.util.Date;
 
 //Class for storing all of the variables associated with a twitter call
-public class tweetobject{
+public class TweetObject{
 	
 	public String avatar;
 	public String username;
@@ -11,8 +11,8 @@ public class tweetobject{
 	public String body;
 	
 	//Deep copy method to return a new object with no links to the original
-	public tweetobject deepcopy(){
-		tweetobject temp = new tweetobject();
+	public TweetObject deepcopy(){
+		TweetObject temp = new TweetObject();
 		temp.avatar = avatar;
 		temp.username = username;
 		temp.time = time;

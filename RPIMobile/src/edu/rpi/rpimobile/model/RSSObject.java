@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile.model;
+package edu.rpi.rpimobile.model;
 
 import java.util.Date;
 

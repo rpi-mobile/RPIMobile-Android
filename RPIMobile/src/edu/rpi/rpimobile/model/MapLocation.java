@@ -7,7 +7,7 @@
  *              in the ListView created by MapFragment.
  */
 
-package rpi.edu.rpimobile.model;
+package edu.rpi.rpimobile.model;
 
 public class MapLocation {
 	

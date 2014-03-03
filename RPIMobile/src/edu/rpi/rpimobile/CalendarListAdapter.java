@@ -1,8 +1,8 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.util.ArrayList;
 
-import rpi.edu.rpimobile.model.CalEvent;
+import edu.rpi.rpimobile.model.CalEvent;
 
 import android.content.Context;
 import android.content.Intent;

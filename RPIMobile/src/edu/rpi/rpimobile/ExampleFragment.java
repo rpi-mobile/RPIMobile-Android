@@ -1,16 +1,8 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
+/*
+package edu.rpi.rpimobile;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
-import rpi.edu.rpimobile.model.Building;
 
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -27,9 +19,10 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+import edu.rpi.rpimobile.model.Building;
 
-//Laundry Fragment
-public class LaundryFragment extends SherlockFragment {
+//TV Guide Fragment
+public class ExampleFragment extends SherlockFragment {
     
 	//All variables to be used throughout the function
     private ArrayList<Building> buildings;
@@ -59,7 +52,7 @@ public class LaundryFragment extends SherlockFragment {
         buildinglist.setAdapter(listadapter);
         
         //download the Laundry data
-        downloadtask = new LaundryFragment.Download().execute(5.0);
+        downloadtask = new ExampleFragment.Download().execute(5.0);
         
         
         return rootView;
@@ -91,12 +84,12 @@ public class LaundryFragment extends SherlockFragment {
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
 		//Class called when an options item is selected
-		logcat( "LaundryFragment: onOptionsItemSelected");
+		logcat( "Fragment2: onOptionsItemSelected");
 		//If the refresh button was pressed
         if (item == refreshbutton){
         	
         	//Download the weather again
-        	downloadtask = new LaundryFragment.Download().execute(5.0);
+        	downloadtask = new ExampleFragment.Download().execute(5.0);
         	
         }
         
@@ -116,78 +109,10 @@ public class LaundryFragment extends SherlockFragment {
     	//Class to be ran in another thread
     		@Override
     		protected Boolean doInBackground(Double... params) {
-    			
-    			//temp variable for storing each building
-    			Building temp = new Building();
-    			//temp variable for the website source
-    			String source = "";
-    			
+
     			logcat( "Beginning download");
     			
-    			try {
-    				//try to download the source of the webpage
-    				HttpClient httpClient = new DefaultHttpClient();
-        			HttpGet get = new HttpGet("http://www.laundryalert.com/cgi-bin/rpi2012/LMPage?CallingPage=LMRoom&RoomPersistence=&MachinePersistenceA=023&MachinePersistenceB=");
-        			
-					HttpResponse response = httpClient.execute(get);
-					
-					source = EntityUtils.toString(response.getEntity());
-				} catch (ClientProtocolException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-    			
-    			//This code parses the webpage source and saves each building's name free washers and dryers, and used washers and dryers.
-    			//It is just a simple scrape of the webpage that will be phased out as soon as LaundryAlert has a public API, or RPIMobile 
-    			//has it's own server for data like this.
-    			
-    			logcat( "Source download Length: "+source.length());
-    			//logcat( source);
-    			String[] results = source.split("\\s+");
-    			int counter = 0;
-    			for(int i=0; i<results.length; i++){
-    				if(results[i].contains("sans-serif")){
-    					counter++;
-    					if(counter>8&&!(results[i+1].equals("On")&&results[i+2].equals("site"))){
-	    					temp = new Building();
-	    					
-	    					temp.tag = results[i].substring(12);
-	    					
-	    					logcat( temp.tag);
-	    					
-	    					i++;
-	    					while(!results[i].contains("font")){
-	    						logcat( "Concatinating: "+results[i]);
-	    						temp.tag = temp.tag+" "+results[i];
-	    						i++;
-	    					}
-	    					logcat( temp.tag);
-	    					
-	    					while(!results[i].contains("sans-serif")) i++;
-	    					i++;
-	    					temp.available_washers=Integer.parseInt(results[i]);
-	    					logcat( ""+temp.available_washers);
-	    					
-	    					while(!results[i].contains("sans-serif")) i++;
-	    					i++;
-	    					temp.available_dryers=Integer.parseInt(results[i]);
-	    					
-	    					while(!results[i].contains("sans-serif")) i++;
-	    					i++;
-	    					temp.used_washers=Integer.parseInt(results[i]);
-	    					
-	    					while(!results[i].contains("sans-serif")) i++;
-	    					i++;
-	    					temp.used_dryers=Integer.parseInt(results[i]);
-	    					
-	    					buildings.add(temp);
-	    				}
-    				}
-    			}
-    			
-    			
-    			
+    			//Perform Download code
     			
     	        logcat( "Exiting AsynchTask");
     			return true;
@@ -200,8 +125,11 @@ public class LaundryFragment extends SherlockFragment {
     			getActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
     			try{ 
     				//if the fragment is visible update the list adapter
-    				if(LaundryFragment.this.isVisible())
+    				if(ExampleFragment.this.isVisible())
+    					
+    					//Code to update UI
     					listadapter.notifyDataSetChanged();
+    				
     				else {
     					logcat( "Canceling view, Fragment 2 not visible");
     				}
@@ -226,4 +154,4 @@ public class LaundryFragment extends SherlockFragment {
 
 
 }
-
+*/

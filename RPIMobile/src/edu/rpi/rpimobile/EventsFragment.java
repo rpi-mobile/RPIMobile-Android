@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import rpi.edu.rpimobile.model.CalEvent;
+import edu.rpi.rpimobile.model.CalEvent;
 
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;

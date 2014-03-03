@@ -1,10 +1,10 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import rpi.edu.rpimobile.model.tweetobject;
+import edu.rpi.rpimobile.model.TweetObject;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,10 +21,10 @@ public class TweetListAdapter extends BaseAdapter {
  
     // Declare Variables
     Context context;
-	ArrayList<tweetobject> tweets;
+	ArrayList<TweetObject> tweets;
     LayoutInflater inflater;
  
-    public TweetListAdapter(Context context, ArrayList<tweetobject> tweets_) {
+    public TweetListAdapter(Context context, ArrayList<TweetObject> tweets_) {
         this.context = context;
         this.tweets = tweets_;
     }

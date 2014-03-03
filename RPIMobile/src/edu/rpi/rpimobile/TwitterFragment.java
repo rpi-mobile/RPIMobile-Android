@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.apache.http.util.ByteArrayBuffer;
 
-import rpi.edu.rpimobile.model.tweetobject;
+import edu.rpi.rpimobile.model.TweetObject;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -42,11 +42,11 @@ public class TwitterFragment extends SherlockFragment {
 	
 	//All variables to be used throughout the function
 	
-	private tweetobject temp = new tweetobject();
-	private ArrayList<tweetobject> tweets = new ArrayList<tweetobject>();
-	private ArrayList<tweetobject> temptweets = new ArrayList<tweetobject>();
+	private TweetObject temp = new TweetObject();
+	private ArrayList<TweetObject> tweets = new ArrayList<TweetObject>();
+	private ArrayList<TweetObject> temptweets = new ArrayList<TweetObject>();
 	
-	private ArrayList<tweetobject> finlist = new ArrayList<tweetobject>();
+	private ArrayList<TweetObject> finlist = new ArrayList<TweetObject>();
 	
 	private ListView tweetlist;
 	private TweetListAdapter tweetadapter;
@@ -65,7 +65,7 @@ public class TwitterFragment extends SherlockFragment {
         setHasOptionsMenu(true);
         
         //Assign the tweets variable to a new Arraylist of tweetobject objects
-        tweets = new ArrayList<tweetobject>();
+        tweets = new ArrayList<TweetObject>();
         
         //Set the listview to an adapter to handle displaying the data
         tweetlist = (ListView) rootView.findViewById(R.id.tweetlist);
@@ -282,7 +282,7 @@ public class TwitterFragment extends SherlockFragment {
 	            for (twitter4j.Status status : statuses) {
 	            	logcat( "Looping status");
 	            	//temp object
-	            	temp = new tweetobject();
+	            	temp = new TweetObject();
 	            	String avatarurl;
 	            	//status must be handled differently if it is normal or a retweet
 	            	if(!status.isRetweet()){
@@ -404,7 +404,7 @@ public class TwitterFragment extends SherlockFragment {
 }
     
     //Class to add tweets to the "tweets" list
-    private void addtotweets(ArrayList<tweetobject> temp){
+    private void addtotweets(ArrayList<TweetObject> temp){
     	
     	logcat("Combining lists");
     	logcat("Tweets list: "+tweets.size()+" Temp list: "+temp.size());
@@ -448,7 +448,7 @@ public class TwitterFragment extends SherlockFragment {
     //Because ArrayLists really just store pointers to their objects a deepcopy must be made of each
     //item and passed to the list individually. This is much more efficient than using the 
     //java.serialize class to do this automatically.
-    private void assign(ArrayList<tweetobject> target, ArrayList<tweetobject> source){
+    private void assign(ArrayList<TweetObject> target, ArrayList<TweetObject> source){
     	logcat( "Starting copy source:"+source.size()+" Target:"+target.size());
     	//clear the target list
     	target.clear();

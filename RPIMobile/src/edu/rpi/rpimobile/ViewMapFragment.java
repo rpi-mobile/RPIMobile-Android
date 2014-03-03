@@ -16,7 +16,7 @@
  * 
  */
 
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import android.app.Activity;
 import android.os.Bundle;

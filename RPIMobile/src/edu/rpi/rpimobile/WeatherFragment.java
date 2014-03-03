@@ -1,9 +1,9 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import rpi.edu.rpimobile.model.Weathervars;
+import edu.rpi.rpimobile.model.Weathervars;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;

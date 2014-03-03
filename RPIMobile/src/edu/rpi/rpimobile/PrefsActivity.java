@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

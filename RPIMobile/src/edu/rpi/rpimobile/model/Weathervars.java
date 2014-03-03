@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile.model;
+package edu.rpi.rpimobile.model;
 
 //Class for storing all of the variables associated with a weather call
 public class Weathervars{

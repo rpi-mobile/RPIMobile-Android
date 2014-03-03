@@ -1,9 +1,9 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import rpi.edu.rpimobile.model.RSSObject;
+import edu.rpi.rpimobile.model.RSSObject;
 
 import android.content.Context;
 import android.content.Intent;

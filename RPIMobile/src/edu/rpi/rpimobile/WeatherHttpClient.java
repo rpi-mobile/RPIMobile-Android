@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

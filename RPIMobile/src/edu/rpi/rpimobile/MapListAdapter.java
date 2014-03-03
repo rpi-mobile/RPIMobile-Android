@@ -6,11 +6,11 @@
  *              from the MapFragment class.
  */
 
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import java.util.ArrayList;
 
-import rpi.edu.rpimobile.model.MapLocation;
+import edu.rpi.rpimobile.model.MapLocation;
 
 
 import android.content.Context;

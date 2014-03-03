@@ -1,4 +1,4 @@
-package rpi.edu.rpimobile;
+package edu.rpi.rpimobile;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

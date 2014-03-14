@@ -215,6 +215,7 @@ public class AthleticsFragment extends SherlockFragment {
 					tempstories.add(temp);
 				}
 				logcat( "Feed parsed");
+				reader.close();					// Code edited by Peter Piech on 3/14/2014: added line to fix warning of resource leak
 			} catch (RSSReaderException e) {
 				e.printStackTrace();
 			}	

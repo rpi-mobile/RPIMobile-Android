@@ -1,5 +1,6 @@
 package edu.rpi.rpimobile;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -15,9 +16,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.youtube.player.YouTubeIntents;
  
 //MainActivity. Holds the navigation drawer and the fragment frame
@@ -128,6 +133,17 @@ public class MainActivity extends SherlockFragmentActivity {
         
         logcat( "Oncreate ran");
     }
+    
+    @Override
+    public void onResume()
+    {
+    	super.onResume();
+    	int statusCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+    	if (statusCode != ConnectionResult.SUCCESS)
+    	{
+    		Toast.makeText(this, "Install the latest version of Google Play Services to use all the features of this app", Toast.LENGTH_LONG).show();
+    	}
+    }
  
     
     @Override
@@ -222,8 +238,16 @@ public class MainActivity extends SherlockFragmentActivity {
         	break; */
         case 6: //Videos
         	//the Youtube feed just opens the external youtube application
-        	Intent i = YouTubeIntents.createUserIntent(this, "rpirensselaer");
-        	startActivity(i);
+        	try
+        	{
+        		Intent i = YouTubeIntents.createUserIntent(this, "rpirensselaer");
+        		startActivity(i);
+        	}
+        	catch (ActivityNotFoundException e)
+        	{
+        		logcat("YouTube Intent: " + e.getMessage());
+        		Toast.makeText(this, "Install the YouTube app before trying again", Toast.LENGTH_LONG).show();
+        	}
         	break;
         
         }

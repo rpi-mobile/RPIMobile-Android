@@ -25,5 +25,11 @@ public class MapLocation {
 	public String getName() { return this.location_name; }
 	public double getLatitude() { return this.latitude; }
 	public double getLongitude() { return this.longitude; }
+	
+	@Override
+	public String toString()
+	{
+		return this.location_name;
+	}
 
 }

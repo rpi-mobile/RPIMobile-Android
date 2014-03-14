@@ -12,7 +12,7 @@
  * 
  * Additions/Edits by:
  * Author: Peter Piech
- * Date: 12/4/2013
+ * Date: 3/14/2013
  * 
  */
 
@@ -20,7 +20,8 @@ package edu.rpi.rpimobile;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,19 +59,15 @@ public class ViewMapFragment extends SupportMapFragment implements OnCreateOptio
 	/** Upon being selected by the user, this method is called to draw the map */
     {
     	super.onCreateView(inflater, container, savedInstanceState);
-    	Log.d("RPI", "calling inflate()");
     	View rootView = inflater.inflate(R.layout.viewmap_fragment, container, false);
-    	Log.d("RPI", "called inflate()");
-    	Log.d("RPI", "calling getSupportFragmentManager()");
     	map = ((SupportMapFragment) mActivity.getSupportFragmentManager().findFragmentById(R.id.mapview)).getMap();
-    	Log.d("RPI", "called getSupportFragmentManager()");
     	map.setMyLocationEnabled(true);
     	map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationCoords, 17));
     	Marker currMarker = map.addMarker(new MarkerOptions().title(locationName).position(locationCoords));
     	currMarker.showInfoWindow();
     	return rootView;
     }
-
+    
     public SherlockFragmentActivity getSherlockActivity() {
         return mActivity;
     }
@@ -83,6 +80,16 @@ public class ViewMapFragment extends SupportMapFragment implements OnCreateOptio
         mActivity = (SherlockFragmentActivity)activity;
 
         super.onAttach(activity);
+    }
+    
+    @Override
+    public void onDestroyView()
+    {
+    	super.onDestroyView();
+    	FragmentManager fm = getSherlockActivity().getSupportFragmentManager();
+    	FragmentTransaction ft = fm.beginTransaction();
+    	ft.remove(fm.findFragmentById(R.id.mapview));
+    	ft.commit();
     }
 
     @Override

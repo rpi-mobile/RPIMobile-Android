@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,11 +32,11 @@ public class WeatherFragment extends SherlockFragment {
 	private TextView tempview;
 	private TextView cityview;
 	private TextView hilowview;
-	private ImageView iconview;
+	//private ImageView iconview;        // Commented out by Peter Piech on 3/14/2014: removes warning of unused variable
 	private JSONObject jObj;
 	private Weathervars today;
 	private MenuItem refreshbutton;
-	private SharedPreferences prefs;
+	//private SharedPreferences prefs;   // Commented out by Peter Piech on 3/14/2014: removes warning of unused variable
 	private JSONWeatherTask downloadtask;
 	
 	

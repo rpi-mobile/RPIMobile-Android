@@ -1,7 +1,7 @@
 /**
  * Filename: MapFragment.java
  * Author: Peter Piech
- * Date: 12/4/2013
+ * Date: 3/14/2013
  * Description: MapFragment class creates the ListView
  *              from which the user selects from all of
  *              the RPI campus locations to be shown on
@@ -22,20 +22,24 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockListFragment;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
-public class MapFragment extends SherlockFragment
+public class MapFragment extends SherlockListFragment
 /** Class used to implement the RPI campus map */
 {
 	
 	private ArrayList<MapLocation> places; // Necessary for MapListAdapter
-	private MapListAdapter listadapter; // Necessary for a ListView
-	private SQLiteDatabase locations_db; // Stores all locations for ListView
+	private ArrayAdapter<MapLocation> adapter;
 	//private MenuItem refreshbutton; // To be used when locations database is moved to server
 	
 	public MapFragment()
@@ -53,50 +57,45 @@ public class MapFragment extends SherlockFragment
 		setHasOptionsMenu(true); // Options Menu is the "three-dots" button
 		
 		// Code below retrieves all data from an SQLite database file for the ListView
-		try
+		if (places.size() == 0)
 		{
-			locations_db = this.getDatabase();
-		}
-		catch (IOException e)
-		{
-			throw new Error("Unable to open database");
-		}
-
-		final String table = "locations";
-		final String orderBy = "name ASC";
-		final Cursor cursor = locations_db.query(table, null, null, null, null, null, orderBy);
-		
-		final String[] columns = {"name", "latitude", "longitude"};
-		
-		final int nameCol = cursor.getColumnIndexOrThrow(columns[0]);
-		final int latiCol = cursor.getColumnIndexOrThrow(columns[1]);
-		final int longCol = cursor.getColumnIndexOrThrow(columns[2]);
-		
-		while (cursor.moveToNext())
-		// Populate the ArrayList with the data from the database file
-		{
-			String currName = cursor.getString(nameCol);
-			double currLati = cursor.getDouble(latiCol);
-			double currLong = cursor.getDouble(longCol);
-			places.add(new MapLocation(currName, currLati, currLong));		
+			this.parseDatabase();
 		}
 		
-		cursor.close();
-		locations_db.close();
-
-		ListView placesList = (ListView) rootView.findViewById(R.id.maplist);
-		listadapter = new MapListAdapter(this.getActivity(), places, getSherlockActivity().getSupportFragmentManager());
-		placesList.setAdapter(listadapter);
+		adapter = new ArrayAdapter<MapLocation>(getSherlockActivity(), R.layout.map_list_item, places);
+		setListAdapter(adapter);
 		
 		return rootView;
 	}
 	
-	private SQLiteDatabase getDatabase() throws SQLException, IOException
+	@Override
+	public void onListItemClick(ListView lv, View v, int position, long id)
+	{
+		int statusCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getSherlockActivity());
+		if (statusCode == ConnectionResult.SUCCESS)
+		{
+			ViewMapFragment vmf = new ViewMapFragment();
+			MapLocation tmpLoc = places.get(position);
+			vmf.setMapParameters(tmpLoc.getName(), tmpLoc.getLatitude(), tmpLoc.getLongitude());
+			FragmentTransaction ft = getSherlockActivity().getSupportFragmentManager().beginTransaction();
+			ft.addToBackStack(null);
+			ft.replace(R.id.content_frame, vmf);
+			ft.commit();
+		}
+		else if (statusCode != ConnectionResult.SUCCESS)
+		{
+    		android.widget.Toast.makeText(getSherlockActivity(),
+    				"Install the latest version of Google Play Services to use this feature",
+    				Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	private void parseDatabase()
 	/** Manages accessing the database file which must be copied into
 	 * internal storage (/data/data/.../) on first run because it can't
 	 * be accessed directly from the /res/raw directory */
 	{
-		final String dbPathName = this.getActivity().getFilesDir().getPath() + "/map_locations.db";
+		final String dbPathName = this.getActivity().getFilesDir().getPath() + "/content.db";
 		SQLiteDatabase tmpDB;
 		
 		try
@@ -108,7 +107,7 @@ public class MapFragment extends SherlockFragment
 		{
 			try // copy the data from '/res/raw/map_locations.db' to internal storage
 			{
-				InputStream internalDB = this.getResources().openRawResource(R.raw.map_locations);
+				InputStream internalDB = this.getResources().openRawResource(R.raw.content);
 				OutputStream externalDB =  new FileOutputStream(dbPathName);
 				byte[] buffer = new byte[1024];
 				int length;
@@ -133,7 +132,28 @@ public class MapFragment extends SherlockFragment
 		{
 			throw new Error("Error opening external database");
 		}
-		return tmpDB;
+		
+		final String table = "locations";
+		final String orderBy = "name ASC";
+		final Cursor cursor = tmpDB.query(table, null, null, null, null, null, orderBy);
+		
+		final String[] columns = {"name", "latitude", "longitude"};
+		
+		final int nameCol = cursor.getColumnIndexOrThrow(columns[0]);
+		final int latiCol = cursor.getColumnIndexOrThrow(columns[1]);
+		final int longCol = cursor.getColumnIndexOrThrow(columns[2]);
+		
+		while (cursor.moveToNext())
+		// Populate the ArrayList with the data from the database file
+		{
+			String currName = cursor.getString(nameCol);
+			double currLati = cursor.getDouble(latiCol);
+			double currLong = cursor.getDouble(longCol);
+			this.places.add(new MapLocation(currName, currLati, currLong));		
+		}
+		
+		cursor.close();
+		tmpDB.close();
 	}
 
 	/*

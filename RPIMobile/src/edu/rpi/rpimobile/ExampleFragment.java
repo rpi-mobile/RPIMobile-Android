@@ -1,4 +1,3 @@
-package edu.rpi.rpimobile;
 /*
 package edu.rpi.rpimobile;
 

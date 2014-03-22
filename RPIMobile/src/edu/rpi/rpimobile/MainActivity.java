@@ -42,9 +42,10 @@ public class MainActivity extends SherlockFragmentActivity {
     private Fragment athleticsFragment = new AthleticsFragment();  //Formerly Fragment4
     private Fragment eventsFragment = new EventsFragment();  //Formerly Fragment5
     private Fragment mapFragment = new MapFragment();
+    private Fragment tvguideFragment = new TVGuideFragment();
     //private Fragment exampleFragment = new ExampleFragment();  //Formerly Fragment6
     
-  //Initial function
+    //Initial function
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +57,13 @@ public class MainActivity extends SherlockFragmentActivity {
         setContentView(R.layout.activity_main);
         
         // Generate title array
-        title = new String[] { "Weather", "Laundry","Twitter","Athletics","Events",/* "Shuttles","Directory"
-        		,"TV Listings","Building Hours", */"Map", "Videos" };
+        title = new String[] { "Weather", "Laundry", "Twitter", "Athletics", "Events",/* "Shuttles","Directory",
+        		"Building Hours", */"Map", "TV Guide", "Videos" };
  
         // Generate icon array
         icon = new int[] { R.drawable.ic_wm_weather, R.drawable.ic_wm_laundry, R.drawable.ic_wm_twitter, R.drawable.ic_wm_athletics,
-        		R.drawable.ic_wm_event,/* R.drawable.ic_wm_shuttle, R.drawable.ic_wm_directory, R.drawable.ic_wm_tv, 
-        		R.drawable.ic_wm_map, */ R.drawable.ic_wm_map, R.drawable.ic_wm_video };
+        		R.drawable.ic_wm_event,/* R.drawable.ic_wm_shuttle, R.drawable.ic_wm_directory, */
+        		R.drawable.ic_wm_map, R.drawable.ic_wm_tv, R.drawable.ic_wm_video };
  
         // Locate DrawerLayout in drawer_main.xml
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -192,7 +193,7 @@ public class MainActivity extends SherlockFragmentActivity {
             selectItem(position);
             mDrawerList.setItemChecked(position, true);
             //if the item was the youtube feed then don't change the action bar title
-            if(position!=6) actiontitle = title[position];
+            if(position!=7) actiontitle = title[position]; // TODO: Increment comparison when adding new fragments; fixes title bar mismatch
             getSupportActionBar().setTitle(actiontitle);
         }
     }
@@ -224,21 +225,23 @@ public class MainActivity extends SherlockFragmentActivity {
         	break;
         //these are the future items. They will be uncommented as they are implemented	
         	
- /*       case 7: //Shuttles
+ /*     case 6: //Shuttles
         	Toast.makeText(this, "Shuttles selected", Toast.LENGTH_SHORT).show();
         	break;
-        case 8: //Directory
+        case 7: //Directory
         	Toast.makeText(this, "Directory selected", Toast.LENGTH_SHORT).show();
         	break;
-        case 9: //TV Listings
-	   		ft.replace(R.id.content_frame, fragment6);
-        	break;
-        case 10: //Building Hours
+        case 8: //Building Hours
         	Toast.makeText(this, "Building Hours selected", Toast.LENGTH_SHORT).show();
-        	break; */
-        case 6: //Videos
+        	break;
+ */
+        case 6: // TV Guide
+        	ft.replace(R.id.content_frame, tvguideFragment);
+        	break;
+        case 7: //Videos
         	//the Youtube feed just opens the external youtube application
         	try
+        	// if the YouTube app is not installed, this app will crash
         	{
         		Intent i = YouTubeIntents.createUserIntent(this, "rpirensselaer");
         		startActivity(i);

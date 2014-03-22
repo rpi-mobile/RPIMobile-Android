@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1" >
+
+    <TextView
+        android:id="@+id/networkName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="ExampleNetworkLongNameDude HDx2"
+        android:layout_weight="0.8"
+        android:gravity="center_vertical|left"
+        android:minLines="2"
+        android:maxLines="2" />
+
+    <TextView
+        android:id="@+id/channelNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="169-2"
+        android:layout_weight="0.2"
+        android:gravity="center_vertical|right"
+        android:minLines="2" />
+
+</LinearLayout>

@@ -1,11 +1,11 @@
 /**
- * Filename: MapFragment.java
+ * Filename: TVGuideFragment.java
  * Author: Peter Piech
  * Date: 3/15/2014
- * Description: MapFragment class creates the ListView
+ * Description: TVGuideFragment class creates the ListView
  *              from which the user selects from all of
- *              the RPI campus locations to be shown on
- *              a Google Map view.
+ *              the RPI campus television stations to be
+ *              taken to their corresponding website.
  */
 
 package edu.rpi.rpimobile;
@@ -21,81 +21,54 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.rpi.rpimobile.model.MapLocation;
-
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.actionbarsherlock.app.SherlockFragment;
 
-public class MapFragment extends SherlockListFragment
-/** Class used to implement the RPI campus map */
+import edu.rpi.rpimobile.model.TVChannel;
+
+public class TVGuideFragment extends SherlockFragment
+/** Class used to implement the TV Guide feature */
 {
+	private ArrayList<TVChannel> channels;
+	private TVGuideListAdapter listadapter;
 	
-	private ArrayList<MapLocation> places; // Necessary for MapListAdapter
-	private ArrayAdapter<MapLocation> adapter;
-	//private MenuItem refreshbutton; // To be used when locations database is moved to server
-	
-	public MapFragment()
-	/** Class constructor, initializes the ArrayList places */
+	public TVGuideFragment()
 	{
-		places = new ArrayList<MapLocation>();
+		channels = new ArrayList<TVChannel>();
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	/** Upon being selected by the user, this method is called to create the ListView */
 	{
-		View rootView = inflater.inflate(R.layout.map_fragment, container, false);
-		
+		View rootView = inflater.inflate(R.layout.tvguide_fragment, container, false);
 		setHasOptionsMenu(true); // Options Menu is the "three-dots" button
 		
 		// Code below retrieves all data from an SQLite database file for the ListView
-		if (places.size() == 0)
+		if (channels.size() == 0)
 		{
+			Log.d("RPI", "About to parse database");
 			this.parseDatabase();
+			Log.d("RPI", "Parsed database");
 		}
 		
-		adapter = new ArrayAdapter<MapLocation>(getSherlockActivity(), R.layout.map_list_item, places);
-		setListAdapter(adapter);
+		Log.d("RPI", "About to call findViewById()");
+		ListView channelsList = (ListView) rootView.findViewById(R.id.channelList);
+		listadapter = new TVGuideListAdapter(this.getSherlockActivity(), channels);
+		channelsList.setAdapter(listadapter);
 		
 		return rootView;
-	}
-	
-	@Override
-	public void onListItemClick(ListView lv, View v, int position, long id)
-	{
-		int statusCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getSherlockActivity());
-		if (statusCode == ConnectionResult.SUCCESS)
-		{
-			ViewMapFragment vmf = new ViewMapFragment();
-			MapLocation tmpLoc = places.get(position);
-			vmf.setMapParameters(tmpLoc.getName(), tmpLoc.getLatitude(), tmpLoc.getLongitude());
-			FragmentTransaction ft = getSherlockActivity().getSupportFragmentManager().beginTransaction();
-			ft.addToBackStack(null);
-			ft.replace(R.id.content_frame, vmf);
-			ft.commit();
-		}
-		else if (statusCode != ConnectionResult.SUCCESS)
-		{
-    		android.widget.Toast.makeText(getSherlockActivity(),
-    				"Install the latest version of Google Play Services to use this feature",
-    				Toast.LENGTH_LONG).show();
-		}
 	}
 	
 	private void parseDatabase() // TODO: Update strings.xml value dbTimestamp every time you edit the database
@@ -129,11 +102,10 @@ public class MapFragment extends SherlockListFragment
 			oldDB.delete();
 		}
 		prefs.edit().putString("dbInstallDate", df.format(new Date())).commit();
-		
 		try
 		{
 			// check to see if database already exists in internal storage
-			tmpDB = SQLiteDatabase.openDatabase(dbPathName, null, SQLiteDatabase.OPEN_READONLY);
+			tmpDB = SQLiteDatabase.openDatabase(dbPathName, null, SQLiteDatabase.OPEN_READONLY);			
 		}
 		catch (SQLException e) // this will be thrown if the database is not present
 		{
@@ -165,29 +137,30 @@ public class MapFragment extends SherlockListFragment
 			throw new Error("Error opening external database");
 		}
 		
-		final String table = "locations";
-		final String orderBy = "name ASC"; // name in ascending order
+		final String table = "channels";
+		final String orderBy = "_id ASC"; // network in ascending order
 		final Cursor cursor = tmpDB.query(table, null, null, null, null, null, orderBy);
 		
-		final String[] columns = {"name", "latitude", "longitude"};
+		final String[] columns = {"network", "number", "url"};
 		
-		final int nameCol = cursor.getColumnIndexOrThrow(columns[0]);
-		final int latiCol = cursor.getColumnIndexOrThrow(columns[1]);
-		final int longCol = cursor.getColumnIndexOrThrow(columns[2]);
+		final int networkCol = cursor.getColumnIndexOrThrow(columns[0]);
+		final int numberCol = cursor.getColumnIndexOrThrow(columns[1]);
+		final int urlCol = cursor.getColumnIndexOrThrow(columns[2]);
 		
 		while (cursor.moveToNext())
 		// Populate the ArrayList with the data from the database file
 		{
-			String currName = cursor.getString(nameCol);
-			double currLati = cursor.getDouble(latiCol);
-			double currLong = cursor.getDouble(longCol);
-			this.places.add(new MapLocation(currName, currLati, currLong));		
+			String currNetwork = cursor.getString(networkCol);
+			String currNumber = cursor.getString(numberCol);
+			String currURL = cursor.getString(urlCol);
+			this.channels.add(new TVChannel(currNetwork, currNumber, currURL));
 		}
-		
+			
 		cursor.close();
 		tmpDB.close();
 	}
-
+	
+	
 	/*
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	// To be used when database is moved to server
@@ -205,7 +178,7 @@ public class MapFragment extends SherlockListFragment
 	 public boolean onOptionsItemSelected(MenuItem item)
 	 // To be implemented when database is moved to server
 	 {
-		//logcat( "MapFragment: onOptionsItemSelected");
+		//logcat( "TVGuideFragment: onOptionsItemSelected");
 		//If the refresh button was pressed
         if (item == refreshbutton){
         	//refresh the database
@@ -215,5 +188,4 @@ public class MapFragment extends SherlockListFragment
         return super.onOptionsItemSelected(item);
     }
 	*/
-
 }

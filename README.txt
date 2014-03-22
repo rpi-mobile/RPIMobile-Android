@@ -11,13 +11,13 @@ Currently working features:
  - Athletics
  - Events
  - Map
+ - TV Guide
  - Videos
 
 Upcoming features:
 
  - Shuttle Tracker
  - RPI Directory
- - YACS integration
  - MorningMail
 
 

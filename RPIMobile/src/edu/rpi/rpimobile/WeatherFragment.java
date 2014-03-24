@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import edu.rpi.rpimobile.model.Weathervars;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,20 +28,17 @@ import com.actionbarsherlock.view.MenuItem;
 
  
 //Weather Fragment
-public class WeatherFragment extends SherlockFragment {
-    
-	
-	//All variables to be used throughout the function
+public class WeatherFragment extends SherlockFragment
+{
+ 	//All variables to be used throughout the function
 	private TextView tempview;
 	private TextView cityview;
 	private TextView hilowview;
-	//private ImageView iconview;        // Commented out by Peter Piech on 3/14/2014: removes warning of unused variable
+	private ImageView iconview;
 	private JSONObject jObj;
 	private Weathervars today;
 	private MenuItem refreshbutton;
-	//private SharedPreferences prefs;   // Commented out by Peter Piech on 3/14/2014: removes warning of unused variable
 	private JSONWeatherTask downloadtask;
-	
 	
 	//Initial function
 	@Override
@@ -56,31 +56,20 @@ public class WeatherFragment extends SherlockFragment {
         tempview = (TextView) rootView.findViewById(R.id.Temperature);
         cityview = (TextView) rootView.findViewById(R.id.City);
         hilowview = (TextView) rootView.findViewById(R.id.hilow);
-        //iconview = (ImageView) rootView.findViewById(R.id.weathericon);
+        iconview = (ImageView) rootView.findViewById(R.id.weathericon);
         
         //populate the "today" weather item with an instance of the Weathervars class and intital values
         today = new Weathervars();
         
         
-        today.temperature = (float) 255.372; //0f in Kelvin
-        today.location = "Loading Weather"; //placeholder text
-        today.temphigh = (float) 255.372;
-        today.templow = (float) 255.372;
-        this.SetDisplay();
+        today.setTemperature((float) 255.372); //0f in Kelvin
+        today.setLocation("Loading Weather"); //placeholder text
+        today.setTempHigh((float) 255.372);
+        today.setTempLow((float) 255.372);
+        this.SetDisplay(true);
         
-        //Code to eventually be used to cache weather data
-      /*  String prefName = "savedweather";
-		getActivity();
-		prefs = getActivity().getSharedPreferences("RPI" , FragmentActivity.MODE_PRIVATE);
-		today = prefs.
-		
-		
-		Tutorial 
-		http://androidcodemonkey.blogspot.com/2011/07/store-and-get-object-in-android-shared.html
-		//*/
-         
         //Initialize a preference manager
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getSherlockActivity());
         
         //start the download of the weather data
         downloadtask = new JSONWeatherTask();
@@ -91,12 +80,12 @@ public class WeatherFragment extends SherlockFragment {
     }
 	
     @Override
-	public void onStop(){
-    	super.onStop();
+	public void onPause(){
+    	super.onPause();
     	
     	//Class to be run when the fragment is terminated
     	
-    	logcat( "Running onStop()");
+    	logcat( "Running onPause()");
     	//check the state of the Download() task
     	
     	//if there is a download running stop it
@@ -130,7 +119,7 @@ public class WeatherFragment extends SherlockFragment {
         if (item == refreshbutton){
         	
         	//Download the weather again
-        	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getSherlockActivity());
             
             downloadtask = new JSONWeatherTask();
     		downloadtask.execute(new String[]{prefs.getString("weatherlocation", "Troy")});
@@ -149,7 +138,7 @@ public class WeatherFragment extends SherlockFragment {
 		//before the thread is executed set the action bar to show indeterminate progress, usually a spinner
 		protected void onPreExecute(){
 			logcat( "Weather onPreExecute");
-			getActivity().setProgressBarIndeterminateVisibility(Boolean.TRUE);
+			getSherlockActivity().setProgressBarIndeterminateVisibility(Boolean.TRUE);
 		}
 		
 		//Class to be ran in another thread
@@ -177,16 +166,17 @@ public class WeatherFragment extends SherlockFragment {
 			try {
 				jObj = new JSONObject(data);
 				logcat( "Setting today variables");
-				today.temperature = ((float)jObj.getJSONObject("main").getDouble("temp"));
-				today.location = jObj.getString("name");
-				today.temphigh = (float) jObj.getJSONObject("main").getDouble("temp_max");
-				today.templow = (float) jObj.getJSONObject("main").getDouble("temp_min");
-				today.condition = jObj.getJSONArray("weather").getJSONObject(0).getString("main");
+				today.setTemperature(((float)jObj.getJSONObject("main").getDouble("temp")));
+				today.setLocation(jObj.getString("name"));
+				today.setTempHigh((float) jObj.getJSONObject("main").getDouble("temp_max"));
+				today.setTempLow((float) jObj.getJSONObject("main").getDouble("temp_min"));
+				today.setCondition(jObj.getJSONArray("weather").getJSONObject(0).getString("main"));
 				
 				//The OpenWeatherMap API is really inconsistent about download a weather icon, so it's been disabled. 
-				//String tempicon = jObj.getJSONArray("weather").getJSONObject(0).getString("icon");
-				//logcat( "Downloading icon: "+tempicon);
-				//today.icon = (new WeatherHttpClient()).getImage(tempicon);
+				//final String extension = ".png";
+				String tempicon = jObj.getJSONArray("weather").getJSONObject(0).getString("icon")/* + extension*/;
+				logcat( "Downloading icon: "+tempicon);
+				today.setIcon((new WeatherHttpClient()).getImage(tempicon));
 
 			} catch (JSONException e) {				
 				e.printStackTrace();
@@ -207,36 +197,39 @@ public class WeatherFragment extends SherlockFragment {
 		//code to be ran in the UI thread after the background thread has completed
 			super.onPostExecute(weather);
 			//Set the action bar back to normal
-			getActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
+			getSherlockActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
 			//update the display
-			SetDisplay();
+			SetDisplay(false);
 		}
 
   }
-	private void SetDisplay(){
+	private void SetDisplay(boolean onCreateViewFirstRun){
 		//code to update the UI with all of the variables in the "today" object
 			//if anything was actually downloaded
-		if(today.location != null && today.location.length()>0){
-			logcat( "Setting temp to "+(today.temperature));
+		if(today.getLocation() != null && today.getLocation().length()>0){
+			logcat( "Setting temp to "+(today.getTemperature()));
 			//try to populate all views
 			try{
 			//temperature is converted to the proper units as it is populated
-			tempview.setText(tempconvert(today.temperature));
+			tempview.setText(tempconvert(today.getTemperature()));
 			//The high/low is just one textview with a linebreak
-			hilowview.setText("High: "+tempconvert(today.temphigh)+"\nLow: "+tempconvert(today.templow));
+			hilowview.setText("High: "+tempconvert(today.getTempHigh())+"\nLow: "+tempconvert(today.getTempLow()));
 			//Same with the condition and location
-			cityview.setText(today.condition+"\n"+today.location);
+			cityview.setText(today.getCondition() + "\n" + today.getLocation());
 			
 			//Additional code for parsing the icon when it is eventually used
-			/*logcat( "Checking image");
-			if (today.icon != null && today.icon.length > 0) {
+			logcat( "Checking image");
+			if (today.getIcon() != null && today.getIcon().length > 0) {
 				logcat( "Setting Image");
-				Bitmap img = BitmapFactory.decodeByteArray(today.icon, 0, today.icon.length); 
+				Bitmap img = BitmapFactory.decodeByteArray(today.getIcon(), 0, today.getIcon().length); 
 				iconview.setImageBitmap(img);
 			}
-			else Toast.makeText(getActivity(), "Icon Download Failed", Toast.LENGTH_SHORT).show();
-			//*/
-			
+			else if (!onCreateViewFirstRun)
+				// we don't want this message to display when we KNOW it WILL fail
+			{
+				Toast.makeText(getSherlockActivity(), "Icon Download Failed", Toast.LENGTH_SHORT).show();
+			}
+						
 			
 			}
 			catch(Exception e){
@@ -244,14 +237,17 @@ public class WeatherFragment extends SherlockFragment {
 			}
 			}
 			//if there isn't any data then alert the user
-			else Toast.makeText(getActivity(), "Weather Download Failed", Toast.LENGTH_SHORT).show();
+			else
+			{
+				Toast.makeText(getSherlockActivity(), "Weather Download Failed", Toast.LENGTH_SHORT).show();
+			}
 		
 
 	}
 	//class to convert temperature
 	private String tempconvert(float temp){
 		//read the preference for how the user would like to display the temperature
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getSherlockActivity());
 		String temppref = prefs.getString("displaytemp", "f");
 		String temperature;
 		//conversions to each unit. The temperature is given in Kelvin, so that is an option as well. We're engineers
@@ -264,7 +260,7 @@ public class WeatherFragment extends SherlockFragment {
 	}
 	private void logcat(String logtext){
 		//code to write a log.d message if the user allows it in preferences
-		if(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("debugging", false))
+		if(PreferenceManager.getDefaultSharedPreferences(getSherlockActivity()).getBoolean("debugging", false))
 			Log.d("RPI", logtext);
 	}
 	

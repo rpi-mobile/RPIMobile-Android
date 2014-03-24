@@ -23,6 +23,7 @@
         <item >Twitter</item>
         <item >Althletics</item>
         <item >Events</item>
+        <item >Shuttles</item>
         <item >Map</item>
         <item >TV Guide</item>
     </string-array>
@@ -35,6 +36,7 @@
         <item >5</item>
         <item >6</item>
         <item >7</item>
+        <item >8</item>
     </string-array>
     <string name="dbTimestamp">03/21/2014 02:44 PM</string>
 </resources>

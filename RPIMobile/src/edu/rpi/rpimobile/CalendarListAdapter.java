@@ -64,7 +64,7 @@ public class CalendarListAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(events.get(position).link));
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(events.get(position).getLink()));
 				context.startActivity(browserIntent);
 				
 			}
@@ -78,12 +78,12 @@ public class CalendarListAdapter extends BaseAdapter {
         
         
         // Set the results into TextViews
-        txtsummary.setText(events.get(position).summary);
-        txtlocation.setText("Location: "+events.get(position).location);
+        txtsummary.setText(events.get(position).getSummary());
+        txtlocation.setText("Location: "+events.get(position).getLocation());
         
         //the time is displated differently for allday events and hourly events
-        if(events.get(position).allday) txttime.setText(events.get(position).startdate +" - "+events.get(position).enddate);
-        else txttime.setText(events.get(position).startdate+" "+events.get(position).starttime);        
+        if(events.get(position).getAllDay()) txttime.setText(events.get(position).getStartDate() + " - " + events.get(position).getEndDate());
+        else txttime.setText(events.get(position).getStartDate() + " " + events.get(position).getStartTime());        
  
         //pass the populated view back to the ListView
         return itemView;

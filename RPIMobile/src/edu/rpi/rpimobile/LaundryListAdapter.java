@@ -69,11 +69,11 @@ public class LaundryListAdapter extends BaseAdapter {
         
         
         // Set the results into TextViews
-        txttitle.setText(buildings.get(position).tag);
-        txtavai_washers.setText(String.valueOf(buildings.get(position).available_washers));
-        txtavai_dryers.setText(String.valueOf(buildings.get(position).available_dryers));
-        txtused_washers.setText(String.valueOf(buildings.get(position).used_washers));
-        txtused_dryers.setText(String.valueOf(buildings.get(position).used_dryers));
+        txttitle.setText(buildings.get(position).getTag());
+        txtavai_washers.setText(String.valueOf(buildings.get(position).getAvailableWashers()));
+        txtavai_dryers.setText(String.valueOf(buildings.get(position).getAvailableDryers()));
+        txtused_washers.setText(String.valueOf(buildings.get(position).getUsedWashers()));
+        txtused_dryers.setText(String.valueOf(buildings.get(position).getUsedDryers()));
         
         return itemView;
     }

@@ -22,9 +22,9 @@ public class RSSListAdapter extends BaseAdapter {
 	ArrayList<RSSObject> items;
     LayoutInflater inflater;
  
-    public RSSListAdapter(Context context, AthleticsFragment fragment_, ArrayList<RSSObject> items_) {
+    public RSSListAdapter(Context context_, AthleticsFragment fragment_, ArrayList<RSSObject> items_) {
     	//Assign passed list and context to local variables in the class
-        this.context = context;
+        this.context = context_;
         this.fragment = fragment_;
         this.items = items_;
 
@@ -69,7 +69,7 @@ public class RSSListAdapter extends BaseAdapter {
 			
 			@Override
 			public void onClick(View v) {
-				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(items.get(position).link));
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(items.get(position).getLink()));
 				context.startActivity(browserIntent);
 				
 			}
@@ -81,11 +81,11 @@ public class RSSListAdapter extends BaseAdapter {
         txtheading = (TextView) itemView.findViewById(R.id.rssheading);
         
         // Set the results into TextViews
-        txttitle.setText(items.get(position).title);
+        txttitle.setText(items.get(position).getTitle());
 
         //convert the date/time to the correct format
         SimpleDateFormat dtime = new SimpleDateFormat("h:mm a, MMM d");
-        txtheading.setText(items.get(position).category+" | "+dtime.format(items.get(position).time));
+        txtheading.setText(items.get(position).getCategory() + " | " + dtime.format(items.get(position).getTime()));
         
         }
         //if we're viewing the end of the list show a loading message

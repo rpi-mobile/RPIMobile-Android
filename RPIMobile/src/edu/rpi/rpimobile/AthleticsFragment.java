@@ -118,11 +118,11 @@ public class AthleticsFragment extends SherlockFragment {
 	
 	//The tags and rss links to be used in the refreshcycle. 
 	//These can be expanded upon or edited at will as long as the pairing is maintained
-	public String[] tags = {"Top","Baseball","Field Hockey","Football","General","M Basketball","M Cross Country",
+	public final String[] tags = {"Top","Baseball","Field Hockey","Football","General","M Basketball","M Cross Country",
 			"M Golf","M Hockey","M Indoor Track","M Lacrosse","M Soccer","M Swimming Diving","M Tennis","M Track Field","Softball",
 			"W Cross Country","W Ice Hockey","W Indoor Track","W Lacrosse","W Soccer","W Swimming Diving","W Tennis","W Track Field",
 			"W Basketball"};
-	public String[] rsslinks = {"http://www.rpiathletics.com/rss.aspx", "http://www.rpiathletics.com/rss.aspx?path=baseball"
+	public final String[] rsslinks = {"http://www.rpiathletics.com/rss.aspx", "http://www.rpiathletics.com/rss.aspx?path=baseball"
 			,"http://www.rpiathletics.com/rss.aspx?path=fhockey","http://www.rpiathletics.com/rss.aspx?path=football"
 			,"http://www.rpiathletics.com/rss.aspx?path=gen","http://www.rpiathletics.com/rss.aspx?path=mbball"
 			,"http://www.rpiathletics.com/rss.aspx?path=mcross","http://www.rpiathletics.com/rss.aspx?path=golf"
@@ -207,10 +207,10 @@ public class AthleticsFragment extends SherlockFragment {
 				for(int i = 0; i<feedlist.size(); i++){
 					//for each item populate the temporary RSSObject with all data
 					temp = new RSSObject();
-					temp.title = feedlist.get(i).getTitle();
-					temp.link = feedlist.get(i).getLink().toString();
-					temp.time = feedlist.get(i).getPubDate();
-					temp.category = params[1];
+					temp.setTitle(feedlist.get(i).getTitle());
+					temp.setLink(feedlist.get(i).getLink().toString());
+					temp.setTime(feedlist.get(i).getPubDate());
+					temp.setCategory(params[1]);
 					//add the temporary object to the temporary list
 					tempstories.add(temp);
 				}
@@ -256,18 +256,18 @@ public class AthleticsFragment extends SherlockFragment {
     	//start each counter at 0
     	int sourcecounter = 0;
     	int tempcounter = 0;
-    	
+
     	//temporary list
     	finlist.clear();
     	
     	//loop through each list, adding them, most recent first, to the temp list
-    	while(sourcecounter<stories.size()&&tempcounter<temp.size()){
+    	while(sourcecounter<stories.size() & tempcounter <temp.size()){
     		logcat("Looping, Source:"+sourcecounter+" Temp:"+tempcounter);
-    		if(stories.get(sourcecounter).time.after(temp.get(tempcounter).time)){
+    		if(stories.get(sourcecounter).getTime().after(temp.get(tempcounter).getTime())){
     			finlist.add(stories.get(sourcecounter).deepcopy());
     			sourcecounter++;
     		}
-    		else if(stories.get(sourcecounter).time.before(temp.get(tempcounter).time)){
+    		else if(stories.get(sourcecounter).getTime().before(temp.get(tempcounter).getTime())){
     			finlist.add(temp.get(tempcounter).deepcopy());
     			tempcounter++;
     		}
@@ -288,6 +288,26 @@ public class AthleticsFragment extends SherlockFragment {
 			finlist.add(temp.get(tempcounter).deepcopy());
 			tempcounter++;
 		}
+		
+		// If "Top Stories" is selected and any other feed is selected, then
+		// if that feed contains a story that is also in "Top Stories", then
+		// it will appear twice in the ArrayList, so removing duplicates is
+		// necessary:		
+		for (int i = 0; i < finlist.size(); ++i)
+		{
+			for (int j = i; j < finlist.size(); ++j)
+			{
+				if (i == j)
+				{
+					continue;
+				}
+				else if (finlist.get(i).getTitle().equals(finlist.get(j).getTitle()))
+				{
+					finlist.remove(j); // i is usually the category "Top" and we prefer to remove the other
+				}
+			}
+		}
+		
 		//Assign the temporary list to the "stories" list
     	assign(stories, finlist);  	
     	logcat( "Lists combined. Source list:"+stories.size());

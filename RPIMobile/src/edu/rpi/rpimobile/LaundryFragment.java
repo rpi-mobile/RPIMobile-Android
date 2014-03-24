@@ -152,34 +152,34 @@ public class LaundryFragment extends SherlockFragment {
     					if(counter>8&&!(results[i+1].equals("On")&&results[i+2].equals("site"))){
 	    					temp = new Building();
 	    					
-	    					temp.tag = results[i].substring(12);
+	    					temp.setTag(results[i].substring(12));
 	    					
-	    					logcat( temp.tag);
+	    					logcat( temp.getTag());
 	    					
 	    					i++;
 	    					while(!results[i].contains("font")){
 	    						logcat( "Concatinating: "+results[i]);
-	    						temp.tag = temp.tag+" "+results[i];
+	    						temp.setTag(temp.getTag() +" "+results[i]);
 	    						i++;
 	    					}
-	    					logcat( temp.tag);
+	    					logcat( temp.getTag());
 	    					
 	    					while(!results[i].contains("sans-serif")) i++;
 	    					i++;
-	    					temp.available_washers=Integer.parseInt(results[i]);
-	    					logcat( ""+temp.available_washers);
+	    					temp.setAvailableWashers(Integer.parseInt(results[i]));
+	    					logcat("" + temp.getAvailableWashers());
 	    					
 	    					while(!results[i].contains("sans-serif")) i++;
 	    					i++;
-	    					temp.available_dryers=Integer.parseInt(results[i]);
+	    					temp.setAvailableDryers(Integer.parseInt(results[i]));
 	    					
 	    					while(!results[i].contains("sans-serif")) i++;
 	    					i++;
-	    					temp.used_washers=Integer.parseInt(results[i]);
+	    					temp.setUsedWashers(Integer.parseInt(results[i]));
 	    					
 	    					while(!results[i].contains("sans-serif")) i++;
 	    					i++;
-	    					temp.used_dryers=Integer.parseInt(results[i]);
+	    					temp.setUsedDryers(Integer.parseInt(results[i]));
 	    					
 	    					buildings.add(temp);
 	    				}

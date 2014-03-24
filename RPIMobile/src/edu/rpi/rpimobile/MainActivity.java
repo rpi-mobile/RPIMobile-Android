@@ -26,7 +26,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.youtube.player.YouTubeIntents;
  
 //MainActivity. Holds the navigation drawer and the fragment frame
-public class MainActivity extends SherlockFragmentActivity {
+public class MainActivity extends SherlockFragmentActivity
+{
  
     // Declare Variables to be used in this function
     private DrawerLayout mDrawerLayout;
@@ -42,6 +43,7 @@ public class MainActivity extends SherlockFragmentActivity {
     private Fragment athleticsFragment = new AthleticsFragment();  //Formerly Fragment4
     private Fragment eventsFragment = new EventsFragment();  //Formerly Fragment5
     private Fragment mapFragment = new MapFragment();
+    private Fragment shuttlesFragment = new ShuttlesFragment();
     private Fragment tvguideFragment = new TVGuideFragment();
     //private Fragment exampleFragment = new ExampleFragment();  //Formerly Fragment6
     
@@ -57,12 +59,12 @@ public class MainActivity extends SherlockFragmentActivity {
         setContentView(R.layout.activity_main);
         
         // Generate title array
-        title = new String[] { "Weather", "Laundry", "Twitter", "Athletics", "Events",/* "Shuttles","Directory",
+        title = new String[] { "Weather", "Laundry", "Twitter", "Athletics", "Events", "Shuttles", /*"Directory",
         		"Building Hours", */"Map", "TV Guide", "Videos" };
  
         // Generate icon array
         icon = new int[] { R.drawable.ic_wm_weather, R.drawable.ic_wm_laundry, R.drawable.ic_wm_twitter, R.drawable.ic_wm_athletics,
-        		R.drawable.ic_wm_event,/* R.drawable.ic_wm_shuttle, R.drawable.ic_wm_directory, */
+        		R.drawable.ic_wm_event, R.drawable.ic_wm_shuttle, /*R.drawable.ic_wm_directory, */
         		R.drawable.ic_wm_map, R.drawable.ic_wm_tv, R.drawable.ic_wm_video };
  
         // Locate DrawerLayout in drawer_main.xml
@@ -193,7 +195,7 @@ public class MainActivity extends SherlockFragmentActivity {
             selectItem(position);
             mDrawerList.setItemChecked(position, true);
             //if the item was the youtube feed then don't change the action bar title
-            if(position!=7) actiontitle = title[position]; // TODO: Increment comparison when adding new fragments; fixes title bar mismatch
+            if(position!=8) actiontitle = title[position]; // TODO: Increment comparison when adding new fragments; fixes title bar mismatch
             getSupportActionBar().setTitle(actiontitle);
         }
     }
@@ -218,7 +220,11 @@ public class MainActivity extends SherlockFragmentActivity {
         case 4: //Events
         	ft.replace(R.id.content_frame, eventsFragment);
         	break;
-        case 5: //Map
+        case 5:
+        	Toast.makeText(this, "Shuttles selected", Toast.LENGTH_SHORT).show();
+        	ft.replace(R.id.content_frame, shuttlesFragment);
+        	break;
+        case 6: //Map
         	//Toast.makeText(this, "Map selected", Toast.LENGTH_SHORT).show();
         	// additional tag string argument is necessary for MapListAdapter transaction:
         	ft.replace(R.id.content_frame, mapFragment);
@@ -235,10 +241,10 @@ public class MainActivity extends SherlockFragmentActivity {
         	Toast.makeText(this, "Building Hours selected", Toast.LENGTH_SHORT).show();
         	break;
  */
-        case 6: // TV Guide
+        case 7: // TV Guide
         	ft.replace(R.id.content_frame, tvguideFragment);
         	break;
-        case 7: //Videos
+        case 8: //Videos
         	//the Youtube feed just opens the external youtube application
         	try
         	// if the YouTube app is not installed, this app will crash

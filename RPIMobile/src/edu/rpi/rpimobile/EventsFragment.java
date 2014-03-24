@@ -150,19 +150,19 @@ public class EventsFragment extends SherlockFragment {
 					
 					logcat( "Getting variables");
 					
-					temp.summary = tempJ.getString("summary");
-					temp.link = tempJ.getString("eventlink");
-					temp.allday = tempJ.getJSONObject("start").getBoolean("allday");
-					temp.startdate = tempJ.getJSONObject("start").getString("shortdate");
-					temp.starttime = tempJ.getJSONObject("start").getString("time");
-					temp.enddate = tempJ.getJSONObject("end").getString("shortdate");
-					temp.endtime = tempJ.getJSONObject("end").getString("time");
-					temp.location = tempJ.getJSONObject("location").getString("address");
-					temp.description = tempJ.getString("description");
+					temp.setSummary(tempJ.getString("summary"));
+					temp.setLink(tempJ.getString("eventlink"));
+					temp.setAllDay(tempJ.getJSONObject("start").getBoolean("allday"));
+					temp.setStartDate(tempJ.getJSONObject("start").getString("shortdate"));
+					temp.setStartTime(tempJ.getJSONObject("start").getString("time"));
+					temp.setEndDate(tempJ.getJSONObject("end").getString("shortdate"));
+					temp.setEndTime(tempJ.getJSONObject("end").getString("time"));
+					temp.setLocation(tempJ.getJSONObject("location").getString("address"));
+					temp.setDescription(tempJ.getString("description"));
 					
 					events.add(temp);
 					
-					logcat( "Item saved: "+temp.summary);
+					logcat( "Item saved: "+temp.getSummary());
 				}
 				
 				logcat( "Data pushed, Size: "+events.size());

@@ -58,12 +58,9 @@ public class TVGuideFragment extends SherlockFragment
 		// Code below retrieves all data from an SQLite database file for the ListView
 		if (channels.size() == 0)
 		{
-			Log.d("RPI", "About to parse database");
 			this.parseDatabase();
-			Log.d("RPI", "Parsed database");
 		}
 		
-		Log.d("RPI", "About to call findViewById()");
 		ListView channelsList = (ListView) rootView.findViewById(R.id.channelList);
 		listadapter = new TVGuideListAdapter(this.getSherlockActivity(), channels);
 		channelsList.setAdapter(listadapter);

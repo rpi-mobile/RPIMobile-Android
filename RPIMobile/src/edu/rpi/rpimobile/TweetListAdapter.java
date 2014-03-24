@@ -69,17 +69,17 @@ public class TweetListAdapter extends BaseAdapter {
         if(tweets.size()==0) return itemView;
         
         // Set the results into TextViews
-        txtusername.setText(tweets.get(position).username);
+        txtusername.setText(tweets.get(position).getUsername());
         
         //Format the date/time correctly
         SimpleDateFormat dtime = new SimpleDateFormat("h:mm a, MMM d");
-        txttime.setText(dtime.format(tweets.get(position).time));
+        txttime.setText(dtime.format(tweets.get(position).getTime()));
         
-        txtbody.setText(tweets.get(position).body);
+        txtbody.setText(tweets.get(position).getBody());
         txtbody.setMovementMethod(LinkMovementMethod.getInstance());
         // Set the results into ImageView
         //imgIcon.setImageResource(avatars.get(position));
-        File storemap = new File(this.context.getDir("avatars", Context.MODE_PRIVATE)+tweets.get(position).avatar);//declare what map image to use
+        File storemap = new File(this.context.getDir("avatars", Context.MODE_PRIVATE)+tweets.get(position).getAvatar());//declare what map image to use
 		Bitmap myBitmap = BitmapFactory.decodeFile(storemap.getAbsolutePath());
 		imgIcon.setImageBitmap(myBitmap);//set the map to the imageview
         

@@ -2,16 +2,19 @@ package edu.rpi.rpimobile;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
-public class WeatherHttpClient {
+public class WeatherHttpClient
+{	
 	
-	
-	
-	private static String IMG_URL = "http://openweathermap.org/img/w/";
+	private final static String IMG_URL = "http://openweathermap.org/img/w/";
+	private final static String RequestMethod = "GET";
+	private final static String endLine = "\r\n";
 
 	//function to pull a string of data from an http address
 	public String getWeatherData(String location) {
@@ -22,7 +25,7 @@ public class WeatherHttpClient {
 		try {
 			//create a connection, set its parameters, and open it
 			con = (HttpURLConnection) ( new URL(location)).openConnection();
-			con.setRequestMethod("GET");
+			con.setRequestMethod(RequestMethod);
 			con.setDoInput(true);
 			con.setDoOutput(true);
 			con.connect();
@@ -33,7 +36,7 @@ public class WeatherHttpClient {
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			String line = null;
 			while (  (line = br.readLine()) != null )
-				buffer.append(line + "\r\n");
+				buffer.append(line + endLine);
 			//close the Stringbuffer and http connection
 			is.close();
 			con.disconnect();
@@ -51,37 +54,31 @@ public class WeatherHttpClient {
 
 	}
 	//Code to download the OpenWeatherMap icon
-	public byte[] getImage(String code) {
-		//create variables
-		HttpURLConnection con = null ;
-		InputStream is = null;
+	public byte[] getImage(String code)
+	// 3/23/2014: Method rewrite by Peter Piech
+	{
 		try {
-			//create http connection, setup parameters, and open the connection
-			con = (HttpURLConnection) ( new URL(IMG_URL + code)).openConnection();
-			con.setRequestMethod("GET");
-			con.setDoInput(true);
-			con.setDoOutput(true);
-			con.connect();
-
-			//Read the response
-			is = con.getInputStream();
+			URL url = new URL(IMG_URL + code);
+			InputStream is = (InputStream) url.getContent();
 			byte[] buffer = new byte[1024];
+			int bytesRead;
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-			while ( is.read(buffer) != -1)
-				baos.write(buffer);
-			
+			while ((bytesRead = is.read(buffer)) != -1)
+			{
+				baos.write(buffer, 0, bytesRead);
+			}
 			return baos.toByteArray();
 	    }
-		catch(Throwable t) {
-			t.printStackTrace();
+		catch(MalformedURLException e)
+		{
+			e.printStackTrace();
+			return null;
 		}
-		finally {
-			try { is.close(); } catch(Throwable t) {}
-			try { con.disconnect(); } catch(Throwable t) {}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+			return null;
 		}
-
-		return null;
 
 	}
 }

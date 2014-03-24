@@ -286,24 +286,24 @@ public class TwitterFragment extends SherlockFragment {
 	            	String avatarurl;
 	            	//status must be handled differently if it is normal or a retweet
 	            	if(!status.isRetweet()){
-	            		temp.username = status.getUser().getScreenName();
-	            		temp.body = status.getText();
+	            		temp.setUsername(status.getUser().getScreenName());
+	            		temp.setBody(status.getText());
 	            		avatarurl = status.getUser().getProfileImageURL();
 	            	}
 	            	else{
 	            		//if the status is a retweet get the original poster's information and append a RT message to the end of the body
-	            		temp.username = status.getRetweetedStatus().getUser().getScreenName();
-	            		temp.body = ""+status.getRetweetedStatus().getText()+"\nRetweeted by @"+status.getUser().getScreenName();
+	            		temp.setUsername(status.getRetweetedStatus().getUser().getScreenName());
+	            		temp.setBody(""+status.getRetweetedStatus().getText()+"\nRetweeted by @"+status.getUser().getScreenName());
 	            		avatarurl = status.getRetweetedStatus().getUser().getProfileImageURL();
 	            	}
-	            	temp.time = status.getCreatedAt();
+	            	temp.setTime(status.getCreatedAt());
 	            	
 	            	//download profile picture
 	            	logcat( "Calling download class");
-					downloadFromUrl(avatarurl,temp.username);
+					downloadFromUrl(avatarurl,temp.getUsername());
 					
 					//the file name of the avatar is just the username
-					temp.avatar = temp.username;
+					temp.setAvatar(temp.getUsername());
 					
 					//add the tweet object to the temporary lists
 					temptweets.add(temp);
@@ -418,11 +418,11 @@ public class TwitterFragment extends SherlockFragment {
     	
     	//loop through each list, adding them, most recent first, to the temp list
     	while(tweetcounter<tweets.size()&&tempcounter<temp.size()){
-    		if(tweets.get(tweetcounter).time.after(temp.get(tempcounter).time)){
+    		if(tweets.get(tweetcounter).getTime().after(temp.get(tempcounter).getTime())){
     			finlist.add(tweets.get(tweetcounter).deepcopy());
     			tweetcounter++;
     		}
-    		else if(tweets.get(tweetcounter).time.before(temp.get(tempcounter).time)){
+    		else if(tweets.get(tweetcounter).getTime().before(temp.get(tempcounter).getTime())){
     			finlist.add(temp.get(tempcounter).deepcopy());
     			tempcounter++;
     		}

@@ -68,12 +68,9 @@ public class WeatherFragment extends SherlockFragment
         today.setTempLow((float) 255.372);
         this.SetDisplay(true);
         
-        //Initialize a preference manager
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getSherlockActivity());
-        
         //start the download of the weather data
         downloadtask = new JSONWeatherTask();
-		downloadtask.execute(new String[]{prefs.getString("weatherlocation", "Troy")});
+		downloadtask.execute();
         
 		logcat( "WeatherFragment: OnCreate ran");
        return rootView;
@@ -117,12 +114,9 @@ public class WeatherFragment extends SherlockFragment
 		//If the refresh button was pressed
 			
         if (item == refreshbutton){
-        	
-        	//Download the weather again
-        	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getSherlockActivity());
             
             downloadtask = new JSONWeatherTask();
-    		downloadtask.execute(new String[]{prefs.getString("weatherlocation", "Troy")});
+    		downloadtask.execute();
         	
         }
         //This passes the call back up the chain to the main class, which also handles onOptionsitemSeleced events
@@ -133,7 +127,9 @@ public class WeatherFragment extends SherlockFragment
 	
 	
 	//AsyncTask thread to download weather data
-	private class JSONWeatherTask extends AsyncTask<String, Void, Weathervars> {
+	private class JSONWeatherTask extends AsyncTask<Void, Void, Weathervars> {
+		
+		private static final String troyID = "http://api.openweathermap.org/data/2.5/weather?id=5141502";
 		
 		//before the thread is executed set the action bar to show indeterminate progress, usually a spinner
 		protected void onPreExecute(){
@@ -143,7 +139,7 @@ public class WeatherFragment extends SherlockFragment
 		
 		//Class to be ran in another thread
 		@Override
-		protected Weathervars doInBackground(String... params) {
+		protected Weathervars doInBackground(Void... params) {
 			logcat( "WeatherdoInBackground started");
 			//If a looper hasn't already been prepared by another thread prepare one for this application
 			if (Looper.myLooper()==null) {
@@ -154,7 +150,7 @@ public class WeatherFragment extends SherlockFragment
 			today = new Weathervars();
 			//Try to download data
 			try {
-			data = ( (new WeatherHttpClient()).getWeatherData("http://api.openweathermap.org/data/2.5/weather?q="+params[0]));//+"&units=imperial"));
+			data = (new WeatherHttpClient()).getWeatherData(troyID);//+"&units=imperial"));
 			logcat( "downloaded data of length "+data.length());
 			}
 			catch(Exception e){

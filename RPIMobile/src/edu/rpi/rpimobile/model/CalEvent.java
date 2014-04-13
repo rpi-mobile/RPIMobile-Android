@@ -2,7 +2,7 @@ package edu.rpi.rpimobile.model;
 
 
 //Class for storing all of the variables associated with a Calendar call
-public class CalEvent {
+public final class CalEvent {
 	
 	//public String title;
 	private String summary;

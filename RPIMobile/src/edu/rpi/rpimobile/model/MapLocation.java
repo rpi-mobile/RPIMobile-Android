@@ -9,11 +9,11 @@
 
 package edu.rpi.rpimobile.model;
 
-public class MapLocation {
+public final class MapLocation {
 	
-	private String location_name;
-	private double latitude;
-	private double longitude;
+	private final String location_name;
+	private final double latitude;
+	private final double longitude;
 	
 	public MapLocation(String location_name_, double latitude_, double longitude_)
 	{

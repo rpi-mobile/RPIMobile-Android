@@ -57,6 +57,7 @@ import org.xml.sax.SAXException;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
@@ -138,13 +139,38 @@ public class ShuttlesFragment extends SupportMapFragment implements OnCreateOpti
     }
     
     @Override
+	public void onStop()
+    {
+    	super.onStop();
+    	if (routesDownloadTask != null && routesDownloadTask.getStatus() == Status.RUNNING)
+    	{
+    		routesDownloadTask.cancel(true);
+    	}
+    	if (positionsDownloadTask != null && positionsDownloadTask.getStatus() == Status.RUNNING)
+    	{
+    		positionsDownloadTask.cancel(true);
+    	}
+    }
+    
+    @Override
     public void onDestroyView()
     {
     	super.onDestroyView();
     	FragmentManager fm = mActivity.getSupportFragmentManager();
     	FragmentTransaction ft = fm.beginTransaction();
     	ft.remove(fm.findFragmentById(R.id.shuttlesview));
-    	ft.commit();
+    	try
+    	// avoid RuntimeException: IllegalStateException
+    	// caused by calling commit() after saveInstanceState
+    	// has been called on the activity already.
+    	// (i.e. the user hits the back button to kill
+    	//  the app)
+    	{
+    		ft.commit();
+    	}
+    	catch (Exception e)
+    	{ } // we don't need to do anything. the app is killed anyway!
+    	
     }
 
     @Override

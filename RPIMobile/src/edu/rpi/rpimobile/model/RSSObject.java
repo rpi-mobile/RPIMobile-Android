@@ -3,7 +3,7 @@ package edu.rpi.rpimobile.model;
 import java.util.Date;
 
 //Class for storing all of the variables associated with a RSS call
-public class RSSObject
+public final class RSSObject
 {
 	private String title;
 	private String link;

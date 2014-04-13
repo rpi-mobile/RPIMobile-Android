@@ -1,7 +1,7 @@
 package edu.rpi.rpimobile.model;
 
 //Class for storing all of the variables associated with a weather call
-public class Weathervars{
+public final class Weathervars{
 	private String location;
 	private Float temperature;
 	private Float temphigh;

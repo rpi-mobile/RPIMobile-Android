@@ -221,7 +221,6 @@ public class MainActivity extends SherlockFragmentActivity
         	ft.replace(R.id.content_frame, eventsFragment);
         	break;
         case 5:
-        	Toast.makeText(this, "Shuttles selected", Toast.LENGTH_SHORT).show();
         	ft.replace(R.id.content_frame, shuttlesFragment);
         	break;
         case 6: //Map

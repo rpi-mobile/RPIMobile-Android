@@ -3,7 +3,7 @@ package edu.rpi.rpimobile.model;
 import java.util.Date;
 
 //Class for storing all of the variables associated with a twitter call
-public class TweetObject{
+public final class TweetObject{
 	
 	private String avatar;
 	private String username;

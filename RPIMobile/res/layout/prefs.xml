@@ -16,21 +16,6 @@
             android:summary="Display Temperature Units"
             android:title="Temperature Units" />
 
-        <EditTextPreference
-            android:defaultValue="Troy"
-            android:key="weatherlocation"
-            android:summary="Prefered weather location"
-            android:title="Weather Location" />
-        <!--
-  <EditTextPreference
-     android:key="username"
-     android:summary="Please enter your login username"
-     android:title="Username" />
-  <EditTextPreference
-     android:key="password"
-     android:summary="Enter your password"
-     android:title="Password" />
-        -->
     </PreferenceCategory>
     
 <PreferenceCategory

@@ -9,11 +9,11 @@
 
 package edu.rpi.rpimobile.model;
 
-public class TVChannel
+public final class TVChannel
 {
-	private String network_name;
-	private String network_number;
-	private String network_url;
+	private final String network_name;
+	private final String network_number;
+	private final String network_url;
 	
 	public TVChannel(String network, String number, String URL)
 	{

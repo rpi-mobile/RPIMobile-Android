@@ -52,7 +52,7 @@ public class EventsFragment extends SherlockFragment {
         
         //set an adapter up for the listview to handle displaying the data
         ListView callist = (ListView) rootView.findViewById(R.id.calendarlist);
-        listadapter = new CalendarListAdapter(this.getActivity(), events);
+        listadapter = new CalendarListAdapter(this.getSherlockActivity(), events);
         callist.setAdapter(listadapter);
         
         //Start the download of the calendar data
@@ -68,13 +68,13 @@ public class EventsFragment extends SherlockFragment {
 	public void onStop(){
     	super.onStop();
     	//this class, for some reason, didn't like the logcat() function. Very strange.
-    	if(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("debugging", false)) Log.d("RPI", "Running onStop()");
+    	if(PreferenceManager.getDefaultSharedPreferences(getSherlockActivity()).getBoolean("debugging", false)) Log.d("RPI", "Running onStop()");
     	//check the state of the Download() task
     	if(downloadtask != null && downloadtask.getStatus() == Status.RUNNING){
     		//if there is a download running stop it
-    		if(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("debugging", false)) Log.d("RPI", "Stopping Thread");	
+    		if(PreferenceManager.getDefaultSharedPreferences(getSherlockActivity()).getBoolean("debugging", false)) Log.d("RPI", "Stopping Thread");	
     		downloadtask.cancel(true);
-    		if(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("debugging", false)) Log.d("RPI", "Thread Stopped");
+    		if(PreferenceManager.getDefaultSharedPreferences(getSherlockActivity()).getBoolean("debugging", false)) Log.d("RPI", "Thread Stopped");
     	}
     }
 	
@@ -109,7 +109,7 @@ public class EventsFragment extends SherlockFragment {
 
 		//before the thread is executed set the action bar to show indeterminate progress, usually a spinner
 		protected void onPreExecute(){
-			getActivity().setProgressBarIndeterminateVisibility(Boolean.TRUE);
+			getSherlockActivity().setProgressBarIndeterminateVisibility(Boolean.TRUE);
 		}
 		
 		//Class to be ran in another thread
@@ -130,7 +130,7 @@ public class EventsFragment extends SherlockFragment {
 			catch(Exception e){
 				//if the download failed quit the thread and notify the user
 				e.printStackTrace();
-				Toast.makeText(getActivity(), "Calendar Download Failed", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getSherlockActivity(), "Calendar Download Failed", Toast.LENGTH_SHORT).show();
 				return true;
 			}
 			//Try to read all of the JSON objects into their respective variables
@@ -180,12 +180,12 @@ public class EventsFragment extends SherlockFragment {
 
 
 
-	@Override
+		@Override
 		protected void onPostExecute(Boolean results) {	
 		//code to be ran in the UI thread after the background thread has completed
 			logcat( "Updating List");
 			//Set the action bar back to normal
-			getActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
+			getSherlockActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
 			
 			try{
 				//Notify the list of new data
@@ -200,7 +200,7 @@ public class EventsFragment extends SherlockFragment {
 
 	private void logcat(String logtext){
 		//code to write a log.d message if the user allows it in preferences
-		if(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("debugging", false))
+		if(PreferenceManager.getDefaultSharedPreferences(getSherlockActivity()).getBoolean("debugging", false))
 			Log.d("RPI", logtext);
 	}
 

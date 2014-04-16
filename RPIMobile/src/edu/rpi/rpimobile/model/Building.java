@@ -1,7 +1,7 @@
 package edu.rpi.rpimobile.model;
 
 //Class for storing all of the variables associated with a laundry call
-public final class Building
+public final class Building implements Comparable<Building>
 {
 	
 	private String tag = "";
@@ -20,5 +20,10 @@ public final class Building
 	public void setAvailableDryers(int available_) { this.available_dryers = available_; }
 	public void setUsedWashers(int used_) { this.used_washers = used_; }
 	public void setUsedDryers(int used_) { this.used_dryers = used_; }
+	
+	@Override
+	public int compareTo(Building b) {
+		return this.getTag().compareTo(b.getTag());
+	}
 	
 }

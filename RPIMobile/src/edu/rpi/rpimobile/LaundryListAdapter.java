@@ -1,8 +1,7 @@
 package edu.rpi.rpimobile;
 
 import java.util.ArrayList;
-
-import edu.rpi.rpimobile.model.Building;
+import java.util.Collections;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import edu.rpi.rpimobile.model.Building;
  
 public class LaundryListAdapter extends BaseAdapter {
  
@@ -44,6 +44,7 @@ public class LaundryListAdapter extends BaseAdapter {
  
     public View getView(final int position, View convertView, ViewGroup parent) {
     	//inflate the layout into the parent view
+    	Collections.sort(buildings);
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.laundry_list_item, parent,

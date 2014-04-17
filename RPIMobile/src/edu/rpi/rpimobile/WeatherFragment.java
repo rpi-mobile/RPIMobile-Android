@@ -249,7 +249,7 @@ public class WeatherFragment extends SherlockFragment
 		//conversions to each unit. The temperature is given in Kelvin, so that is an option as well. We're engineers
 		if(temppref.equals("f")) temperature = "" + Math.round(((temp - 273.15)*1.8)+32) + "°F";
 		else if(temppref.equals("c")) temperature = "" + Math.round(temp - 273.15) + "°C";
-		else if(temppref.equals("k")) temperature = "" + Math.round(temp) + "°K";
+		else if(temppref.equals("k")) temperature = "" + Math.round(temp) + "K";
 		//handle an unrecognized temperature
 		else temperature = "Invalid data";
 		return temperature;

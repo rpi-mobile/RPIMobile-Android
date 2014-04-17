@@ -221,7 +221,17 @@ public class MainActivity extends SherlockFragmentActivity
         	ft.replace(R.id.content_frame, eventsFragment);
         	break;
         case 5:
-        	ft.replace(R.id.content_frame, shuttlesFragment);
+        	int statusCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        	if (statusCode == ConnectionResult.SUCCESS)
+        	{
+        		ft.replace(R.id.content_frame, shuttlesFragment);
+        	}
+        	else if (statusCode != ConnectionResult.SUCCESS)
+        	{
+        		android.widget.Toast.makeText(this,
+        				"Install the latest version of Google Play Services to use this feature",
+        				Toast.LENGTH_LONG).show();
+        	}
         	break;
         case 6: //Map
         	//Toast.makeText(this, "Map selected", Toast.LENGTH_SHORT).show();

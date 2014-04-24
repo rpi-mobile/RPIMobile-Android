@@ -111,11 +111,13 @@ public class TwitterFragment extends SherlockFragment {
   	public boolean onOptionsItemSelected(MenuItem item) {
   		logcat( "TwitterFragment: onOptionsItemSelected");
   		//If the refresh button was pressed
-          if (item == refreshbutton){
-          	//refresh the tweets
-          	refreshcycle();
-          	
-          }
+  		if (item == refreshbutton){
+  			//refresh the tweets
+  			if(downloadtask != null && downloadtask.getStatus() != Status.RUNNING)
+  			{
+  				refreshcycle();
+  			}
+        }
         //This passes the call back up the chain to the main class, which also handles onOptionsitemSeleced events
           return super.onOptionsItemSelected(item);
       }

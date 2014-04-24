@@ -21,10 +21,10 @@ public final class TweetObject{
 		return temp;
 	}
 	
-	public String getAvatar() { return this.avatar; }
-	public String getUsername() { return this.username; }
-	public Date getTime() { return this.time; }
-	public String getBody() { return this.body; }
+	public String getAvatar() { return new String(this.avatar); }
+	public String getUsername() { return new String(this.username); }
+	public Date getTime() { return new Date(this.time.getTime()); }
+	public String getBody() { return new String(this.body); }
 	public void setAvatar(String avatar_) { this.avatar = avatar_; }
 	public void setUsername(String username_) { this.username = username_; }
 	public void setTime(Date time_) { this.time = time_; }

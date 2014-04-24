@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +64,7 @@ public class WeatherFragment extends SherlockFragment
         
         
         today.setTemperature((float) 255.372); //0f in Kelvin
-        today.setLocation("Loading Weather"); //placeholder text
+        today.setLocation("Loading Weather\nTroy"); //placeholder text
         today.setTempHigh((float) 255.372);
         today.setTempLow((float) 255.372);
         this.SetDisplay(true);
@@ -115,8 +116,11 @@ public class WeatherFragment extends SherlockFragment
 			
         if (item == refreshbutton){
             
-            downloadtask = new JSONWeatherTask();
-    		downloadtask.execute();
+        	if(downloadtask != null && downloadtask.getStatus() != Status.RUNNING)
+        	{
+        		downloadtask = new JSONWeatherTask();
+        		downloadtask.execute();
+        	}
         	
         }
         //This passes the call back up the chain to the main class, which also handles onOptionsitemSeleced events
@@ -130,6 +134,7 @@ public class WeatherFragment extends SherlockFragment
 	private class JSONWeatherTask extends AsyncTask<Void, Void, Weathervars> {
 		
 		private static final String troyID = "http://api.openweathermap.org/data/2.5/weather?id=5141502";
+		private static final String image_URL_prefix = "http://openweathermap.org/img/w/";
 		
 		//before the thread is executed set the action bar to show indeterminate progress, usually a spinner
 		protected void onPreExecute(){
@@ -150,7 +155,7 @@ public class WeatherFragment extends SherlockFragment
 			today = new Weathervars();
 			//Try to download data
 			try {
-			data = (new WeatherHttpClient()).getWeatherData(troyID);//+"&units=imperial"));
+			data = (new HttpClient()).getData(troyID);//+"&units=imperial"));
 			logcat( "downloaded data of length "+data.length());
 			}
 			catch(Exception e){
@@ -168,11 +173,9 @@ public class WeatherFragment extends SherlockFragment
 				today.setTempLow((float) jObj.getJSONObject("main").getDouble("temp_min"));
 				today.setCondition(jObj.getJSONArray("weather").getJSONObject(0).getString("main"));
 				
-				//The OpenWeatherMap API is really inconsistent about download a weather icon, so it's been disabled. 
-				//final String extension = ".png";
-				String tempicon = jObj.getJSONArray("weather").getJSONObject(0).getString("icon")/* + extension*/;
+				String tempicon = jObj.getJSONArray("weather").getJSONObject(0).getString("icon");
 				logcat( "Downloading icon: "+tempicon);
-				today.setIcon((new WeatherHttpClient()).getImage(tempicon));
+				today.setIcon((new HttpClient()).getImage(image_URL_prefix + tempicon));
 
 			} catch (JSONException e) {				
 				e.printStackTrace();

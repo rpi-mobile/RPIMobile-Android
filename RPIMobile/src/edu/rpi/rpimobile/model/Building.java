@@ -10,11 +10,11 @@ public final class Building implements Comparable<Building>
 	private int used_washers = 0;
 	private int used_dryers = 0;
 	
-	public String getTag() { return this.tag; }	
-	public int getAvailableWashers() { return this.available_washers; }	
-	public int getAvailableDryers()	{ return this.available_dryers;	}	
-	public int getUsedWashers()	{ return this.used_washers;	}	
-	public int getUsedDryers() { return this.used_dryers; }	
+	public String getTag() { return new String(this.tag); }	
+	public int getAvailableWashers() { return Integer.valueOf(this.available_washers); }	
+	public int getAvailableDryers()	{ return Integer.valueOf(this.available_dryers);	}	
+	public int getUsedWashers()	{ return Integer.valueOf(this.used_washers);	}	
+	public int getUsedDryers() { return Integer.valueOf(this.used_dryers); }	
 	public void setTag(String tag_)	{ this.tag = tag_; }
 	public void setAvailableWashers(int available_) { this.available_washers = available_; }
 	public void setAvailableDryers(int available_) { this.available_dryers = available_; }

@@ -22,8 +22,8 @@ public final class TVChannel
 		this.network_url = URL;
 	}
 	
-	public String getNetworkName() { return this.network_name; }
-	public String getNumber() { return this.network_number; }
-	public String getNetworkURL() { return this.network_url; }
+	public String getNetworkName() { return new String(this.network_name); }
+	public String getNumber() { return new String(this.network_number); }
+	public String getNetworkURL() { return new String(this.network_url); }
 
 }

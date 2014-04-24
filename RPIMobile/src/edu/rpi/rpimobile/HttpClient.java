@@ -1,3 +1,16 @@
+/**
+ * Filename: HttpClient.java
+ * Author: Alex Karcher
+ * Editor: Peter Piech
+ * Date: 4/24/2014
+ * 
+ * Description: Originally named 'WeatherHttpClient.java', this file
+ * 				was renamed due to its use outside of the WeatherFragment
+ * 				alone (it is also used by EventsFragment). It is a
+ * 				simple class for downloading data from URLs, whether
+ * 				it is an HTML string or an image file.
+ */
+
 package edu.rpi.rpimobile;
 
 import java.io.BufferedReader;
@@ -9,22 +22,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class WeatherHttpClient
+public class HttpClient
 {	
-	
-	private final static String IMG_URL = "http://openweathermap.org/img/w/";
 	private final static String RequestMethod = "GET";
 	private final static String endLine = "\r\n";
 
 	//function to pull a string of data from an http address
-	public String getWeatherData(String location) {
+	public String getData(String http_URL) {
 		//initial variables
 		HttpURLConnection con = null ;
 		InputStream is = null;
 
 		try {
 			//create a connection, set its parameters, and open it
-			con = (HttpURLConnection) ( new URL(location)).openConnection();
+			con = (HttpURLConnection) ( new URL(http_URL)).openConnection();
 			con.setRequestMethod(RequestMethod);
 			con.setDoInput(true);
 			con.setDoOutput(true);
@@ -54,11 +65,10 @@ public class WeatherHttpClient
 
 	}
 	//Code to download the OpenWeatherMap icon
-	public byte[] getImage(String code)
-	// 3/23/2014: Method rewrite by Peter Piech
+	public byte[] getImage(String http_URL)
 	{
 		try {
-			URL url = new URL(IMG_URL + code);
+			URL url = new URL(http_URL);
 			InputStream is = (InputStream) url.getContent();
 			byte[] buffer = new byte[1024];
 			int bytesRead;

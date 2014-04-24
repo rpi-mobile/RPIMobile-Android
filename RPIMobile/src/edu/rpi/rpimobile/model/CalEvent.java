@@ -15,15 +15,15 @@ public final class CalEvent {
 	private String startdate;
 	private String enddate;
 	
-	public String getSummary() { return this.summary; }
-	public String getDescription() { return this.description; }
-	public String getLink() { return this.link; }
-	public String getLocation() { return this.location; }	
-	public boolean getAllDay() { return this.allday; }
-	public String getStartTime() { return this.starttime; }
-	public String getEndTime() { return this.endtime; } 
-	public String getStartDate() { return this.startdate; }
-	public String getEndDate() { return this.enddate; }
+	public String getSummary() { return new String(this.summary); }
+	public String getDescription() { return new String(this.description); }
+	public String getLink() { return new String(this.link); }
+	public String getLocation() { return new String(this.location); }	
+	public boolean getAllDay() { return Boolean.valueOf(this.allday); }
+	public String getStartTime() { return new String(this.starttime); }
+	public String getEndTime() { return new String(this.endtime); } 
+	public String getStartDate() { return new String(this.startdate); }
+	public String getEndDate() { return new String(this.enddate); }
 	
 	public void setSummary(String summary_) { this.summary = summary_; }
 	public void setDescription(String description_) { this.description = description_; }

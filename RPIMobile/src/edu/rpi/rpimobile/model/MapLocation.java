@@ -22,14 +22,14 @@ public final class MapLocation {
 		this.longitude = longitude_;
 	}
 	
-	public String getName() { return this.location_name; }
-	public double getLatitude() { return this.latitude; }
-	public double getLongitude() { return this.longitude; }
+	public String getName() { return new String(this.location_name); }
+	public double getLatitude() { return Double.valueOf(this.latitude); }
+	public double getLongitude() { return Double.valueOf(this.longitude); }
 	
 	@Override
 	public String toString()
 	{
-		return this.location_name;
+		return new String(this.location_name);
 	}
 
 }

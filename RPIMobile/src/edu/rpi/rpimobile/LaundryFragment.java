@@ -37,7 +37,7 @@ public class LaundryFragment extends SherlockFragment {
     private ListView buildinglist;
     private LaundryListAdapter listadapter;
     private MenuItem refreshbutton;
-    private AsyncTask<Double, Void, Boolean> downloadtask;
+    private AsyncTask<Void, Void, Boolean> downloadtask;
     
     
     //Initial function
@@ -60,7 +60,7 @@ public class LaundryFragment extends SherlockFragment {
         buildinglist.setAdapter(listadapter);
         
         //download the Laundry data
-        downloadtask = new LaundryFragment.Download().execute(5.0);
+        downloadtask = new LaundryFragment.Download().execute();
         
         
         return rootView;
@@ -97,7 +97,10 @@ public class LaundryFragment extends SherlockFragment {
         if (item == refreshbutton){
         	
         	//Download the weather again
-        	downloadtask = new LaundryFragment.Download().execute(5.0);
+        	if(downloadtask != null && downloadtask.getStatus() != Status.RUNNING)
+        	{
+        		downloadtask = new LaundryFragment.Download().execute();
+        	}
         	
         }
         
@@ -106,19 +109,18 @@ public class LaundryFragment extends SherlockFragment {
     }
 	
 	//AsynchTask thread to download laundry data
-    private class Download extends AsyncTask<Double, Void, Boolean>{
+    private class Download extends AsyncTask<Void, Void, Boolean>{
     		
     	//before the thread is executed set the action bar to show indeterminate progress, usually a spinner
     	protected void onPreExecute(){
 			getActivity().setProgressBarIndeterminateVisibility(Boolean.TRUE);
+			buildings.clear(); // empty the buildings to avoid duplicates
 		}
     	
     		
     	//Class to be ran in another thread
     		@Override
-    		protected Boolean doInBackground(Double... params) {
-    			
-    			buildings.clear();
+    		protected Boolean doInBackground(Void... params) {
     			
     			//temp variable for storing each building
     			Building temp = new Building();

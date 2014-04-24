@@ -2,8 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:background="#ffffff">  <!-- @drawable/weatherfield -->
+    android:background="#ffffff">
 
+    <ImageView
+        android:id="@+id/WeatherBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/biotech"
+        android:scaleType="centerCrop" >
+    </ImageView>
+         
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -19,21 +27,21 @@
 
 	            <TextView
 	                android:id="@+id/Temperature"
-	                android:textSize="28pt"
+	                android:textSize="56sp"
 	                android:textColor="#000000"
 	                android:gravity="right"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:text="TextView" />
+	                android:text="Loading..." />
 	            <TextView
 	                android:id="@+id/hilow"
-	                android:textSize="10pt"
+	                android:textSize="20sp"
 	                android:paddingLeft="5dp"
 	                android:textColor="#000000"
 	                android:gravity="center_vertical|left"
 	                android:layout_width="wrap_content"
 	                android:layout_height="fill_parent"
-	                android:text="TextView" />
+	                android:text="High:\nLow:" />
 	            
 
 	            <ImageView
@@ -47,12 +55,12 @@
 
 	        <TextView
 	            android:id="@+id/City"
-	            android:textSize="12pt"
+	            android:textSize="24sp"
 	            android:textColor="#000000"
 	            android:gravity="right"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="TextView" />
+	            android:text="Loading Weather\nTroy" />
 	        
     </LinearLayout>
 

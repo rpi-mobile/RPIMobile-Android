@@ -23,7 +23,7 @@
         <TextView
             
             android:id="@+id/Text"
-       		android:textSize="10pt"
+       		android:textSize="20sp"
        		android:textColor="#818181"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

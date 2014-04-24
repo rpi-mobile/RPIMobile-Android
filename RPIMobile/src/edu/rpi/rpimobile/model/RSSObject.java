@@ -22,10 +22,10 @@ public final class RSSObject
 		return copy;
 	}
 	
-	public String getTitle() { return this.title; }
-	public String getLink() { return this.link; }
-	public Date getTime() { return this.time; }
-	public String getCategory() { return this.category; }
+	public String getTitle() { return new String(this.title); }
+	public String getLink() { return new String(this.link); }
+	public Date getTime() { return new Date(this.time.getTime()); }
+	public String getCategory() { return new String(this.category); }
 	public void setTitle(String title_) { this.title = title_; }
 	public void setLink(String link_) { this.link = link_; }
 	public void setTime(Date time_) { this.time = time_; }

@@ -57,7 +57,7 @@ public class EventsFragment extends SherlockFragment {
         
         //Start the download of the calendar data
         downloadtask = new JSONCalendarTask();
-		downloadtask.execute(new String[]{"http://events.rpi.edu/webcache/v1.0/jsonDays/31/list-json/no--filter/no--object.json"});
+		downloadtask.execute();
         
        return rootView;
     }
@@ -93,8 +93,7 @@ public class EventsFragment extends SherlockFragment {
         if (item == refreshbutton){
         	//refresh the data
         	downloadtask = new JSONCalendarTask();
-    		downloadtask.execute(new String[]{"http://events.rpi.edu/webcache/v1.0/jsonDays/31/list-json/no--filter/no--object.json"});
-        	
+    		downloadtask.execute();
         }
       //This passes the call back up the chain to the main class, which also handles onOptionsitemSeleced events
         return super.onOptionsItemSelected(item);
@@ -105,16 +104,19 @@ public class EventsFragment extends SherlockFragment {
 	
 	
 	//AsyncTask thread to download calendar data
-	private class JSONCalendarTask extends AsyncTask<String, Void, Boolean> {
+	private class JSONCalendarTask extends AsyncTask<Void, Void, Boolean> {
+		
+		private static final String events_JSON_URL = "http://events.rpi.edu/webcache/v1.0/jsonDays/31/list-json/no--filter/no--object.json";
 
 		//before the thread is executed set the action bar to show indeterminate progress, usually a spinner
 		protected void onPreExecute(){
 			getSherlockActivity().setProgressBarIndeterminateVisibility(Boolean.TRUE);
+			events.clear();
 		}
 		
 		//Class to be ran in another thread
 		@Override
-		protected Boolean doInBackground(String... params) {
+		protected Boolean doInBackground(Void... params) {
 			//If a looper hasn't already been prepared by another thread prepare one for this application
 			if (Looper.myLooper()==null) {
 				 Looper.prepare();
@@ -124,7 +126,7 @@ public class EventsFragment extends SherlockFragment {
 			CalEvent temp = new CalEvent();
 			//Try to download data
 			try {
-			data = ( (new WeatherHttpClient()).getWeatherData(params[0]));//+"&units=imperial"));
+			data = ( (new HttpClient()).getData(events_JSON_URL));
 			logcat( "downloaded data of length "+data.length());
 			}
 			catch(Exception e){
@@ -165,7 +167,6 @@ public class EventsFragment extends SherlockFragment {
 					logcat( "Item saved: "+temp.getSummary());
 				}
 				
-				logcat( "Data pushed, Size: "+events.size());
 
 			} catch (JSONException e) {				
 				e.printStackTrace();

@@ -101,7 +101,10 @@ public class AthleticsFragment extends SherlockFragment {
 		//If the refresh button was pressed
         if (item == refreshbutton){
         	//refresh the data
-        	refreshcycle();
+        	if(downloadtask != null && downloadtask.getStatus() != Status.RUNNING)
+        	{
+        		refreshcycle();
+        	}
         	
         }
       //This passes the call back up the chain to the main class, which also handles onOptionsitemSeleced events

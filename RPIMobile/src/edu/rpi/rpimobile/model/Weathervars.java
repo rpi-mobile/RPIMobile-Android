@@ -1,5 +1,7 @@
 package edu.rpi.rpimobile.model;
 
+import java.util.Arrays;
+
 //Class for storing all of the variables associated with a weather call
 public final class Weathervars{
 	private String location;
@@ -21,13 +23,13 @@ public final class Weathervars{
 		condition = "";
 		icon = null;
 	}
-	public String getLocation() { return this.location; }
-	public Float getTemperature() { return this.temperature; }
-	public Float getTempHigh() { return this.temphigh; }
-	public Float getTempLow() { return this.templow; }
-	public Float getChanceOfPrecipitation() { return this.precipchance; }
-	public String getCondition() { return this.condition; }
-	public byte[] getIcon() { return this.icon; }
+	public String getLocation() { return new String(this.location); }
+	public Float getTemperature() { return Float.valueOf(this.temperature); }
+	public Float getTempHigh() { return Float.valueOf(this.temphigh); }
+	public Float getTempLow() { return Float.valueOf(this.templow); }
+	public Float getChanceOfPrecipitation() { return Float.valueOf(this.precipchance); }
+	public String getCondition() { return new String(this.condition); }
+	public byte[] getIcon() { return Arrays.copyOf(this.icon, this.icon.length); }
 	
 	public void setLocation(String location_) { this.location = location_; }
 	public void setTemperature(Float temperature_) { this.temperature = temperature_; }

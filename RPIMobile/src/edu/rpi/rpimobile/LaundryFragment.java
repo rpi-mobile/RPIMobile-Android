@@ -2,6 +2,7 @@ package edu.rpi.rpimobile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -117,6 +118,8 @@ public class LaundryFragment extends SherlockFragment {
     		@Override
     		protected Boolean doInBackground(Double... params) {
     			
+    			buildings.clear();
+    			
     			//temp variable for storing each building
     			Building temp = new Building();
     			//temp variable for the website source
@@ -186,9 +189,6 @@ public class LaundryFragment extends SherlockFragment {
     				}
     			}
     			
-    			
-    			
-    			
     	        logcat( "Exiting AsynchTask");
     			return true;
     		}
@@ -196,6 +196,8 @@ public class LaundryFragment extends SherlockFragment {
     		protected void onPostExecute(Boolean results) {
     			//code to be ran in the UI thread after the background thread has completed
     			logcat( "Notifying list");
+    			// sort the buildings ArrayList so that it displays in alphabetical order
+    			Collections.sort(buildings);
     			//Set the action bar back to normal
     			getActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
     			try{ 
@@ -209,10 +211,7 @@ public class LaundryFragment extends SherlockFragment {
     			catch(Exception e){
     				logcat( e.toString());
     			}
-    		}
-
-    		
-    		
+    		}    		
     	}
 
 
@@ -221,9 +220,5 @@ public class LaundryFragment extends SherlockFragment {
 		if(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("debugging", false))
 			Log.d("RPI", logtext);
 	}
-
-
-
-
 }
 

@@ -44,9 +44,6 @@ public class LaundryListAdapter extends BaseAdapter {
  
     public View getView(final int position, View convertView, ViewGroup parent) {
     	
-    	//sort the list of buildings according to their name
-    	Collections.sort(buildings);
-    	
     	//inflate the layout into the parent view
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -265,10 +265,10 @@ public class TwitterFragment extends SherlockFragment {
 			//start a new configuration builder and pass it my developer keys
 			ConfigurationBuilder cb = new ConfigurationBuilder();
 	        cb.setDebugEnabled(true)
-	          .setOAuthConsumerKey("UBhESaJGlMUwE0wy8bCTnw")
-	          .setOAuthConsumerSecret("5e0xeE2wz1sthi9Lt0ibsSzYA4umS36yo7abNW4Egg")
-	          .setOAuthAccessToken("15919642-JjVKhEkfEpjrd0es3PGGnaa8vfEvUN4JG0qdPxsiP")
-	          .setOAuthAccessTokenSecret("XZ0tofnuEgWlPbToJoN3c2ZdDiKBcBi3U3CyPqxGR4");
+	          .setOAuthConsumerKey("PuaEO0vyUAhgWKCMuB7e6YK2s")
+	          .setOAuthConsumerSecret("xTSrUcHVb7SH6XX4QKcHoIlXomXjB2LNYGAhAVdL0ec9Qttidi")
+	          .setOAuthAccessToken("1447753297-xl09StljIId28zj44mUlPCNrhRVx7ANzsDqhrWF")
+	          .setOAuthAccessTokenSecret("LSF9y4e4MwLrGx5cP5NJuMQ9XYfUykxEdEEEP9fPzyrIJ");
 	        //start the necessary classes to get tweets
 	        TwitterFactory tf = new TwitterFactory(cb.build());
 	        Twitter twitter = tf.getInstance();

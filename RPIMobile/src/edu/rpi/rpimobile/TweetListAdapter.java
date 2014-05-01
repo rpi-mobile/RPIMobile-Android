@@ -31,7 +31,6 @@ public class TweetListAdapter extends BaseAdapter {
  
     @Override
     public int getCount() {
-    	//if(PreferenceManager.getDefaultSharedPreferences(this.context).getBoolean("debugging", false)) Log.d("RPI", "Tweetlist Size:"+tweets.size());
         return tweets.size();
     }
  

@@ -3,6 +3,9 @@ RPI Mobile for Android
 This application is a Rensselaer Center for Open Source Software project.
 http://rcos.rpi.edu/projects/rpi-mobile-for-android1/
 
+Download it on the Google Play Store:
+http://play.google.com/store/apps/details?id=edu.rpi.rpimobile
+
 Current features:
 
  - Weather
@@ -17,6 +20,7 @@ Current features:
 
 Upcoming features:
 
+ - Dining Hall Menus
  - RPI Directory
  - MorningMail
 
@@ -27,7 +31,7 @@ This application is licensed as stated in LICENSE.txt
 
 Other versions include the iOS edition:
 http://rcos.rpi.edu/projects/rpi-mobile/
-https://github.com/rpi-mobile/RPIMobile-iOS
+http://github.com/rpi-mobile/RPIMobile-iOS
 
 And the back-end server functionality:
-https://github.com/rpi-mobile/RPIMobile-Server
+http://github.com/rpi-mobile/RPIMobile-Server

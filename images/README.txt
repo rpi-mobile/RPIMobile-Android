@@ -15,4 +15,4 @@ If a better "Shuttles" icon is desired, edit as you please and then:
      http://android-ui-utils.googlecode.com/hg/asset-studio/dist/icons-actionbar.html
        to create the ActionBar icons.
 
-smlogo1.xcf (c) 2014 Peter Piech
+smlogo1.xcf, play_store_promo.jpg (C) 2014 Peter Piech. All rights reserved.

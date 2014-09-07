@@ -3,7 +3,7 @@ package edu.rpi.rpimobile;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import edu.rpi.rpimobile.model.RSSObject;
+import edu.rpi.rpimobile.model.RSSArticle;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,10 +19,10 @@ public class RSSListAdapter extends BaseAdapter {
     // Declare Variables
     Context context;
     AthleticsFragment fragment;
-	ArrayList<RSSObject> items;
+	ArrayList<RSSArticle> items;
     LayoutInflater inflater;
  
-    public RSSListAdapter(Context context_, AthleticsFragment fragment_, ArrayList<RSSObject> items_) {
+    public RSSListAdapter(Context context_, AthleticsFragment fragment_, ArrayList<RSSArticle> items_) {
     	//Assign passed list and context to local variables in the class
         this.context = context_;
         this.fragment = fragment_;

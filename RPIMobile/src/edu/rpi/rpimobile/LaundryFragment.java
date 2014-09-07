@@ -3,7 +3,7 @@ package edu.rpi.rpimobile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -11,7 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import edu.rpi.rpimobile.model.Building;
+import edu.rpi.rpimobile.model.LaundryRoom;
 
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -33,12 +33,13 @@ import com.actionbarsherlock.view.MenuItem;
 public class LaundryFragment extends SherlockFragment {
     
 	//All variables to be used throughout the function
-    private ArrayList<Building> buildings;
-    private ListView buildinglist;
+    private List<LaundryRoom> laundryrooms;
+    private ListView laundryroomlist;
     private LaundryListAdapter listadapter;
     private MenuItem refreshbutton;
     private AsyncTask<Void, Void, Boolean> downloadtask;
     
+    private static String landing_page_url = "http://www.laundryalert.com/cgi-bin/rpi2012/LMPage";
     
     //Initial function
     @Override
@@ -51,13 +52,13 @@ public class LaundryFragment extends SherlockFragment {
     	//Allow this fragment to interact with the menu
     	setHasOptionsMenu(true);
     	
-    	//Point the buildings variable to an arraylist of Building objects
-        buildings = new ArrayList<Building>();
+    	//Point the laundryrooms variable to an ArrayList of LaundryRoom objects
+        laundryrooms = new ArrayList<LaundryRoom>();
         
         //assign a list adapter to the listview to handle displaying the data
-        buildinglist = (ListView) rootView.findViewById(R.id.laundrylist);
-        listadapter = new LaundryListAdapter(this.getActivity(), buildings);
-        buildinglist.setAdapter(listadapter);
+        laundryroomlist = (ListView) rootView.findViewById(R.id.laundrylist);
+        listadapter = new LaundryListAdapter(this.getActivity(), laundryrooms);
+        laundryroomlist.setAdapter(listadapter);
         
         //download the Laundry data
         downloadtask = new LaundryFragment.Download().execute();
@@ -114,7 +115,7 @@ public class LaundryFragment extends SherlockFragment {
     	//before the thread is executed set the action bar to show indeterminate progress, usually a spinner
     	protected void onPreExecute(){
 			getActivity().setProgressBarIndeterminateVisibility(Boolean.TRUE);
-			buildings.clear(); // empty the buildings to avoid duplicates
+			laundryrooms.clear(); // empty the laundryrooms to avoid duplicates
 		}
     	
     		
@@ -122,8 +123,8 @@ public class LaundryFragment extends SherlockFragment {
     		@Override
     		protected Boolean doInBackground(Void... params) {
     			
-    			//temp variable for storing each building
-    			Building temp = new Building();
+    			//temp variable for storing each laundryroom
+    			LaundryRoom temp = new LaundryRoom();
     			//temp variable for the website source
     			String source = "";
     			
@@ -132,7 +133,7 @@ public class LaundryFragment extends SherlockFragment {
     			try {
     				//try to download the source of the webpage
     				HttpClient httpClient = new DefaultHttpClient();
-        			HttpGet get = new HttpGet("http://www.laundryalert.com/cgi-bin/rpi2012/LMPage?CallingPage=LMRoom&RoomPersistence=&MachinePersistenceA=023&MachinePersistenceB=");
+        			HttpGet get = new HttpGet(landing_page_url);
         			
 					HttpResponse response = httpClient.execute(get);
 					
@@ -143,7 +144,7 @@ public class LaundryFragment extends SherlockFragment {
 					e.printStackTrace();
 				}
     			
-    			//This code parses the webpage source and saves each building's name free washers and dryers, and used washers and dryers.
+    			//This code parses the webpage source and saves each laundry room's name, free washers and dryers, and used washers and dryers.
     			//It is just a simple scrape of the webpage that will be phased out as soon as LaundryAlert has a public API, or RPIMobile 
     			//has it's own server for data like this.
     			
@@ -151,42 +152,45 @@ public class LaundryFragment extends SherlockFragment {
     			//logcat( source);
     			String[] results = source.split("\\s+");
     			int counter = 0;
-    			for(int i=0; i<results.length; i++){
+    			int j = 0; // used to enumerate the objects for URL setting
+    			for(int i = 0; i<results.length; ++i){
     				if(results[i].contains("sans-serif")){
-    					counter++;
-    					if(counter>8&&!(results[i+1].equals("On")&&results[i+2].equals("site"))){
-	    					temp = new Building();
+    					++counter;
+    					if(counter > 8 && !(results[i+1].equals("On") && results[i+2].equals("site"))){
+	    					temp = new LaundryRoom();
 	    					
 	    					temp.setTag(results[i].substring(12));
 	    					
 	    					logcat( temp.getTag());
 	    					
-	    					i++;
+	    					++i;
 	    					while(!results[i].contains("font")){
 	    						logcat( "Concatinating: "+results[i]);
 	    						temp.setTag(temp.getTag() +" "+results[i]);
-	    						i++;
+	    						++i;
 	    					}
 	    					logcat( temp.getTag());
 	    					
-	    					while(!results[i].contains("sans-serif")) i++;
-	    					i++;
+	    					while(!results[i].contains("sans-serif")) ++i;
+	    					++i;
 	    					temp.setAvailableWashers(Integer.parseInt(results[i]));
 	    					logcat("" + temp.getAvailableWashers());
 	    					
-	    					while(!results[i].contains("sans-serif")) i++;
-	    					i++;
+	    					while(!results[i].contains("sans-serif")) ++i;
+	    					++i;
 	    					temp.setAvailableDryers(Integer.parseInt(results[i]));
 	    					
-	    					while(!results[i].contains("sans-serif")) i++;
-	    					i++;
+	    					while(!results[i].contains("sans-serif")) ++i;
+	    					++i;
 	    					temp.setUsedWashers(Integer.parseInt(results[i]));
 	    					
-	    					while(!results[i].contains("sans-serif")) i++;
-	    					i++;
+	    					while(!results[i].contains("sans-serif")) ++i;
+	    					++i;
 	    					temp.setUsedDryers(Integer.parseInt(results[i]));
 	    					
-	    					buildings.add(temp);
+	    					temp.setLaundryRoomURLNumber(j);
+	    					laundryrooms.add(temp);
+	    					++j;
 	    				}
     				}
     			}
@@ -198,8 +202,8 @@ public class LaundryFragment extends SherlockFragment {
     		protected void onPostExecute(Boolean results) {
     			//code to be ran in the UI thread after the background thread has completed
     			logcat( "Notifying list");
-    			// sort the buildings ArrayList so that it displays in alphabetical order
-    			Collections.sort(buildings);
+    			// sort the laundryrooms ArrayList so that it displays in alphabetical order
+    			Collections.sort(laundryrooms);
     			//Set the action bar back to normal
     			getActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
     			try{ 

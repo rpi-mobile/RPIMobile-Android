@@ -131,7 +131,7 @@ public class MainActivity extends SherlockFragmentActivity
         		
         }
         else{
-        	logcat( "savedInstance state wasn't null");
+        	logcat("savedInstance state wasn't null");
         }
         
         logcat( "Oncreate ran");

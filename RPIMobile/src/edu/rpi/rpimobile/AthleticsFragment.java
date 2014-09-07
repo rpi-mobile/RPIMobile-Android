@@ -8,7 +8,7 @@ import org.mcsoxford.rss.RSSItem;
 import org.mcsoxford.rss.RSSReader;
 import org.mcsoxford.rss.RSSReaderException;
 
-import edu.rpi.rpimobile.model.RSSObject;
+import edu.rpi.rpimobile.model.RSSArticle;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -32,10 +32,10 @@ import com.actionbarsherlock.view.MenuItem;
 public class AthleticsFragment extends SherlockFragment {
 
 	//All variables to be used throughout the function
-	private ArrayList<RSSObject> stories;
-	private ArrayList<RSSObject> tempstories;
-	private ArrayList<RSSObject> finlist = new ArrayList<RSSObject>();
-	private RSSObject temp;
+	private ArrayList<RSSArticle> stories;
+	private ArrayList<RSSArticle> tempstories;
+	private ArrayList<RSSArticle> finlist = new ArrayList<RSSArticle>();
+	private RSSArticle temp;
 	private ListView rsslist;
 	private RSSListAdapter rssadapter;
 	private MenuItem refreshbutton;
@@ -52,8 +52,8 @@ public class AthleticsFragment extends SherlockFragment {
         setHasOptionsMenu(true);
         
         //initialize data
-        stories = new ArrayList<RSSObject>();
-        tempstories = new ArrayList<RSSObject>();
+        stories = new ArrayList<RSSArticle>();
+        tempstories = new ArrayList<RSSArticle>();
         
         
         //set an adapter up for the listview to handle displaying the data
@@ -209,7 +209,7 @@ public class AthleticsFragment extends SherlockFragment {
 				logcat( "Parsing feed");
 				for(int i = 0; i<feedlist.size(); i++){
 					//for each item populate the temporary RSSObject with all data
-					temp = new RSSObject();
+					temp = new RSSArticle();
 					temp.setTitle(feedlist.get(i).getTitle());
 					temp.setLink(feedlist.get(i).getLink().toString());
 					temp.setTime(feedlist.get(i).getPubDate());
@@ -251,7 +251,7 @@ public class AthleticsFragment extends SherlockFragment {
 	}
     
     //class to add objects to the main list
-    private void addtolist(ArrayList<RSSObject> temp){
+    private void addtolist(ArrayList<RSSArticle> temp){
     	
     	logcat("Combining lists");
     	logcat("Source list: "+stories.size()+" Temp list: "+temp.size());
@@ -322,7 +322,7 @@ public class AthleticsFragment extends SherlockFragment {
     //Because ArrayLists really just store pointers to their objects a deepcopy must be made of each
     //item and passed to the list individually. This is much more efficient than using the 
     //java.serialize class to do this automatically.
-    private void assign(ArrayList<RSSObject> target, ArrayList<RSSObject> source){
+    private void assign(ArrayList<RSSArticle> target, ArrayList<RSSArticle> source){
     	logcat( "Starting copy source:"+source.size()+" Target:"+target.size());
     	target.clear();
     	//clear the target list

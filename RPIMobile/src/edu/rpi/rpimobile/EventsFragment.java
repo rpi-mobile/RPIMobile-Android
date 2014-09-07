@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import edu.rpi.rpimobile.model.CalEvent;
+import edu.rpi.rpimobile.model.CalendarEvent;
 
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -31,8 +31,8 @@ public class EventsFragment extends SherlockFragment {
     
 	//All variables to be used throughout the function
 	private JSONObject jObj;
-	private ArrayList<CalEvent> events;
-	private CalendarListAdapter listadapter;
+	private ArrayList<CalendarEvent> events;
+	private EventsListAdapter listadapter;
 	private MenuItem refreshbutton;
 	private JSONCalendarTask downloadtask;
 	
@@ -48,11 +48,11 @@ public class EventsFragment extends SherlockFragment {
         setHasOptionsMenu(true);
         
         //initialize data
-        events = new ArrayList<CalEvent>();
+        events = new ArrayList<CalendarEvent>();
         
         //set an adapter up for the listview to handle displaying the data
         ListView callist = (ListView) rootView.findViewById(R.id.calendarlist);
-        listadapter = new CalendarListAdapter(this.getSherlockActivity(), events);
+        listadapter = new EventsListAdapter(this.getSherlockActivity(), events);
         callist.setAdapter(listadapter);
         
         //Start the download of the calendar data
@@ -123,7 +123,7 @@ public class EventsFragment extends SherlockFragment {
 			 }
 			logcat( "Begining Download");
 			String data;
-			CalEvent temp = new CalEvent();
+			CalendarEvent temp = new CalendarEvent();
 			//Try to download data
 			try {
 			data = ( (new HttpClient()).getData(events_JSON_URL));
@@ -146,7 +146,7 @@ public class EventsFragment extends SherlockFragment {
 				//loop through each of the event items in the array
 				for(int i = 0; i<items.length(); i++){
 					logcat( "Adding item #"+i);
-					temp = new CalEvent();
+					temp = new CalendarEvent();
 					
 					tempJ = items.getJSONObject(i);
 					

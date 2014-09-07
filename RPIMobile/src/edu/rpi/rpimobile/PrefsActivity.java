@@ -9,9 +9,9 @@ public class PrefsActivity extends PreferenceActivity
 	//Very simple activity that launches a PreferenceActivity and populates it was a prefs.xml file
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
+	// TODO : update strings.xml arrays to allow for selection of newly added fragments
 	{
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.layout.prefs);
-		//addPreferencesFromResource(R.layout.prefs_twitter);
 	}
 }

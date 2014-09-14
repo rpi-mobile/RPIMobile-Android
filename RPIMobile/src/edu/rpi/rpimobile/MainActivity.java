@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -202,7 +203,9 @@ public class MainActivity extends SherlockFragmentActivity
     //Function that takes the selected item and launches the respective activity
     private void selectItem(int position) {
     	logcat( "Beginnning fragment Transaction");
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    	FragmentManager fm = getSupportFragmentManager();
+    	fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction ft = fm.beginTransaction();
         // Locate Position
         switch (position) {
         case 0: //weather

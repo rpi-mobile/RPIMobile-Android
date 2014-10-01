@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -140,8 +141,10 @@ public class LaundryFragment extends SherlockFragment {
 					source = EntityUtils.toString(response.getEntity());
 				} catch (ClientProtocolException e) {
 					e.printStackTrace();
+					return false;
 				} catch (IOException e) {
 					e.printStackTrace();
+					return false;
 				}
     			
     			//This code parses the webpage source and saves each laundry room's name, free washers and dryers, and used washers and dryers.
@@ -199,13 +202,20 @@ public class LaundryFragment extends SherlockFragment {
     			return true;
     		}
     		
-    		protected void onPostExecute(Boolean results) {
+    		protected void onPostExecute(Boolean results)
+    		{
+    			//Set the action bar back to normal
+    			getActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
+    			if (!results)
+    			{
+    				Toast.makeText(getSherlockActivity(), "Laundry download failed. Try again later.", Toast.LENGTH_SHORT).show();
+    				return;
+    			}
     			//code to be ran in the UI thread after the background thread has completed
     			logcat( "Notifying list");
     			// sort the laundryrooms ArrayList so that it displays in alphabetical order
     			Collections.sort(laundryrooms);
-    			//Set the action bar back to normal
-    			getActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
+
     			try{ 
     				//if the fragment is visible update the list adapter
     				if(LaundryFragment.this.isVisible())

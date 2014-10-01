@@ -15,12 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -32,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
@@ -111,6 +107,7 @@ public class TVGuideFragment extends SherlockFragment
 			}
 			catch (IOException f)
 			{
+				Toast.makeText(getSherlockActivity(), "TV Guide failed. Please re-install app.", Toast.LENGTH_SHORT).show();
 				throw new Error("Error copying database");
 			}
 		}
@@ -120,6 +117,7 @@ public class TVGuideFragment extends SherlockFragment
 		}
 		catch (SQLException e) // this should never be reached, or something is terribly wrong
 		{
+			Toast.makeText(getSherlockActivity(), "TV Guide failed. Please re-install app.", Toast.LENGTH_SHORT).show();
 			throw new Error("Error opening external database");
 		}
 		

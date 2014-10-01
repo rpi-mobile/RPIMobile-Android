@@ -20,12 +20,12 @@ Current features:
 
 Upcoming features:
 
- - Dining Hall Menus
  - RPI Directory
+ - Dining Hall Menus
  - MorningMail
 
 
-This application is currently released in beta v0.8 on the Google Play Store.
+This application is currently released as version 1.o.4 on the Google Play Store.
 
 This application is licensed as stated in LICENSE.txt
 

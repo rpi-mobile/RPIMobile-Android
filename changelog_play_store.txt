@@ -1,7 +1,9 @@
+v1.0.3 (9/14/2014):
+- Critical user interface bug patched
+
 v1.0.2 (9/7/2014):
 - Added the ability to click on a laundry room to go to its webpage for more in-depth details
 - Critical bug fixes
-
 
 v1.0.1 (5/6/2014):
 - Exited out of beta stage

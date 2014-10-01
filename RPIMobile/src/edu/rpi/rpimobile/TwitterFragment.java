@@ -312,9 +312,10 @@ public class TwitterFragment extends SherlockFragment {
 					
 	            }
 	            logcat( "Tweets Loaded");
-	        } catch (TwitterException te) {
+	        } catch (Exception te) {
 	            te.printStackTrace();
 	            logcat("Failed to get timeline: " + te.getMessage());
+	            return false;
 	            //System.exit(-1);
 	        }
 	        
@@ -322,8 +323,17 @@ public class TwitterFragment extends SherlockFragment {
 			return true;
 		}
 		
-		protected void onPostExecute(Boolean results) {
+		protected void onPostExecute(Boolean results)
+		{
 			//code to be ran in the UI thread after the background thread has completed
+
+			//Set the action bar back to normal
+			getSherlockActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
+			if (!results)
+			{
+	            Toast.makeText(getSherlockActivity(), "Twitter download failed. Try again later.", Toast.LENGTH_SHORT).show();
+				return;
+			}
 			
 			//Combine the temp list with the tweet list
 			logcat( "Adding to list");
@@ -342,10 +352,7 @@ public class TwitterFragment extends SherlockFragment {
 			}
 			//continue the refresh cycle
 			refreshcycle();
-		}
-
-		
-		
+		}		
 	}
     
     //Code to download an image from a URL

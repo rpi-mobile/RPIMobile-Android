@@ -29,7 +29,6 @@ import com.google.android.youtube.player.YouTubeIntents;
 //MainActivity. Holds the navigation drawer and the fragment frame
 public class MainActivity extends SherlockFragmentActivity
 {
- 
     // Declare Variables to be used in this function
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;

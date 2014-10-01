@@ -15,12 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import edu.rpi.rpimobile.model.MapLocation;
 
 import android.content.SharedPreferences;
@@ -141,6 +136,7 @@ public class MapFragment extends SherlockListFragment
 			}
 			catch (IOException f)
 			{
+				Toast.makeText(getSherlockActivity(), "Map failed. Please re-install app.", Toast.LENGTH_SHORT).show();
 				throw new Error("Error copying database");
 			}
 		}
@@ -150,6 +146,7 @@ public class MapFragment extends SherlockListFragment
 		}
 		catch (SQLException e) // this should never be reached, or something is terribly wrong
 		{
+			Toast.makeText(getSherlockActivity(), "Map failed. Please re-install app.", Toast.LENGTH_SHORT).show();
 			throw new Error("Error opening external database");
 		}
 		

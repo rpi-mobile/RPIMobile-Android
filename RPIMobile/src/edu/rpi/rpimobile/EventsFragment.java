@@ -25,9 +25,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
- 
 //Events Calendar fragment
-public class EventsFragment extends SherlockFragment {
+public class EventsFragment extends SherlockFragment
+{
     
 	//All variables to be used throughout the function
 	private JSONObject jObj;
@@ -35,7 +35,6 @@ public class EventsFragment extends SherlockFragment {
 	private EventsListAdapter listadapter;
 	private MenuItem refreshbutton;
 	private JSONCalendarTask downloadtask;
-	
 	
 	//Initial function
 	@Override
@@ -61,8 +60,7 @@ public class EventsFragment extends SherlockFragment {
         
        return rootView;
     }
-	
-	
+
 	//Class to be run when the fragment is terminated
 	@Override
 	public void onStop(){
@@ -98,11 +96,7 @@ public class EventsFragment extends SherlockFragment {
       //This passes the call back up the chain to the main class, which also handles onOptionsitemSeleced events
         return super.onOptionsItemSelected(item);
     }
-	
-	
-	
-	
-	
+
 	//AsyncTask thread to download calendar data
 	private class JSONCalendarTask extends AsyncTask<Void, Void, Boolean> {
 		
@@ -132,8 +126,8 @@ public class EventsFragment extends SherlockFragment {
 			catch(Exception e){
 				//if the download failed quit the thread and notify the user
 				e.printStackTrace();
-				Toast.makeText(getSherlockActivity(), "Calendar Download Failed", Toast.LENGTH_SHORT).show();
-				return true;
+				Toast.makeText(getSherlockActivity(), "Events download failed. Try again later.", Toast.LENGTH_SHORT).show();
+				return false;
 			}
 			//Try to read all of the JSON objects into their respective variables
 			try {
@@ -170,23 +164,26 @@ public class EventsFragment extends SherlockFragment {
 
 			} catch (JSONException e) {				
 				e.printStackTrace();
+				return false;
 			}
 			//Quit the looper now that we're done with it
 			Looper.myLooper().quit();
 			logcat( "Finished Download");
 			return true;
-
 	}
 
-
-
-
 		@Override
-		protected void onPostExecute(Boolean results) {	
-		//code to be ran in the UI thread after the background thread has completed
-			logcat( "Updating List");
+		protected void onPostExecute(Boolean results)
+		{
 			//Set the action bar back to normal
 			getSherlockActivity().setProgressBarIndeterminateVisibility(Boolean.FALSE);
+			if (!results)
+			{
+				Toast.makeText(getSherlockActivity(), "Events download failed. Try again later.", Toast.LENGTH_SHORT).show();
+				return;
+			}
+		//code to be ran in the UI thread after the background thread has completed
+			logcat( "Updating List");
 			
 			try{
 				//Notify the list of new data
@@ -195,20 +192,12 @@ public class EventsFragment extends SherlockFragment {
 			catch(Exception e){
 				logcat( e.toString());
 			}
-			
 		}
-
 
 	private void logcat(String logtext){
 		//code to write a log.d message if the user allows it in preferences
 		if(PreferenceManager.getDefaultSharedPreferences(getSherlockActivity()).getBoolean("debugging", false))
 			Log.d("RPI", logtext);
 	}
-
-
-
-
   }
-	
-	
 }

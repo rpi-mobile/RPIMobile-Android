@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import edu.rpi.rpimobile.model.CalendarEvent;
+import edu.rpi.rpimobile.util.Util;
 
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -122,6 +123,7 @@ public class EventsFragment extends SherlockFragment
 			try {
 			data = ( (new HttpClient()).getData(events_JSON_URL));
 			logcat( "downloaded data of length "+data.length());
+			data = Util.unescapeHTML(data);
 			}
 			catch(Exception e){
 				//if the download failed quit the thread and notify the user

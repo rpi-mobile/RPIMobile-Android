@@ -9,6 +9,7 @@
 package edu.rpi.rpimobile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.rpi.rpimobile.model.TVChannel;
 import android.content.Context;
@@ -23,10 +24,10 @@ import android.widget.TextView;
 public class TVGuideListAdapter extends BaseAdapter
 {
 	private Context context;
-	private ArrayList<TVChannel> channels;
+	private List<TVChannel> channels;
 	private LayoutInflater inflater;
 	
-	public TVGuideListAdapter(Context context_, ArrayList<TVChannel> channels_)
+	public TVGuideListAdapter(Context context_, List<TVChannel> channels_)
 	{
 		this.context = context_;
 		this.channels = channels_;

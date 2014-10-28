@@ -271,25 +271,25 @@ public class WeatherFragment extends SherlockFragment {
 			background.setImageResource(R.drawable.biotech);
 			break;
 		case 3: // scattered clouds
-			background.setImageResource(R.drawable.jrowl);
+			background.setImageResource(R.drawable.quad);
 			break;
 		case 4: // broken clouds
-			background.setImageResource(R.drawable.jrowl);
+			background.setImageResource(R.drawable.quad);
 			break;
 		case 9: // shower rain
-			background.setImageResource(R.drawable.jrowl);
+			background.setImageResource(R.drawable.quad);
 			break;
 		case 10: // rain
-			background.setImageResource(R.drawable.jrowl);
+			background.setImageResource(R.drawable.quad);
 			break;
 		case 11: // thunderstorm
-			background.setImageResource(R.drawable.jrowl);
+			background.setImageResource(R.drawable.quad);
 			break;
 		case 13: // snow
-			background.setImageResource(R.drawable.jrowl);
+			background.setImageResource(R.drawable.quad);
 			break;
 		case 50: // mist
-			background.setImageResource(R.drawable.jrowl);
+			background.setImageResource(R.drawable.quad);
 			break;
 		default: // unknown parsing
 			break;

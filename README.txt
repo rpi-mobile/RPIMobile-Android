@@ -1,4 +1,5 @@
 RPI Mobile for Android
+======================
 
 This application is a Rensselaer Center for Open Source Software project.
 http://rcos.rpi.edu/projects/rpi-mobile-for-android1/
@@ -25,7 +26,7 @@ Upcoming features:
  - MorningMail
 
 
-This application is currently released as version 1.o.4 on the Google Play Store.
+This application is currently released as version 1.o.5 on the Google Play Store.
 
 This application is licensed as stated in LICENSE.txt
 

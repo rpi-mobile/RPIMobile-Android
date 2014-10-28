@@ -1,3 +1,6 @@
+v1.0.5 (10/28/2014):
+- New dynamic weather backgrounds
+- Critical fixes for Shuttles & Map crashes
 v1.0.4 (9/30/2014):
 - App crash bug patched
 v1.0.3 (9/14/2014):
@@ -7,9 +10,6 @@ v1.0.2 (9/7/2014):
 - Critical bug fixes
 v1.0.1 (5/6/2014):
 - Exited out of beta stage
-- Added Shuttle Tracker
-- Added TV Guide
-- Improved design for Weather
-- Improved design for Campus Map
-- Increased stability
-- Critical bug fixes
+- Added Shuttle Tracker & TV Guide
+- Improved design for Weather & Map
+- Critical stability & bug fixes

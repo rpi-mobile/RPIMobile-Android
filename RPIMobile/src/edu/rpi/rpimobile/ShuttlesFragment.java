@@ -106,8 +106,8 @@ public class ShuttlesFragment extends SupportMapFragment implements OnCreateOpti
     {
     	super.onCreateView(inflater, container, savedInstanceState);
     	
-    	final double UnionLat = 42.72997;
-    	final double UnionLon = -73.676649;
+    	final double UnionLat = 42.72997D;
+    	final double UnionLon = -73.676649D;
     	final LatLng centerCoords = new LatLng(UnionLat, UnionLon);
     	
     	routeOverlay = new ShuttlesRoutes();
@@ -115,7 +115,8 @@ public class ShuttlesFragment extends SupportMapFragment implements OnCreateOpti
     	shuttleMarkers = new ArrayList<Marker>();
     	
     	View rootView = inflater.inflate(R.layout.shuttles_fragment, container, false);
-    	map = ((SupportMapFragment) mActivity.getSupportFragmentManager().findFragmentById(R.id.shuttlesview)).getMap();
+    	
+    	map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.shuttlesview)).getMap();
     	map.setMyLocationEnabled(true);
     	map.moveCamera(CameraUpdateFactory.newLatLngZoom(centerCoords, 14));
     	
@@ -149,27 +150,6 @@ public class ShuttlesFragment extends SupportMapFragment implements OnCreateOpti
     	{
     		positionsDownloadTask.cancel(true);
     	}
-    }
-    
-    @Override
-    public void onDestroyView()
-    {
-    	super.onDestroyView();
-    	FragmentManager fm = mActivity.getSupportFragmentManager();
-    	FragmentTransaction ft = fm.beginTransaction();
-    	ft.remove(fm.findFragmentById(R.id.shuttlesview));
-    	try
-    	// avoid RuntimeException: IllegalStateException
-    	// caused by calling commit() after saveInstanceState
-    	// has been called on the activity already.
-    	// (i.e. the user hits the back button to kill
-    	//  the app)
-    	{
-    		ft.commit();
-    	}
-    	catch (Exception e)
-    	{ } // we don't need to do anything. the app is killed anyway!
-    	
     }
 
     @Override

@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
 import edu.rpi.rpimobile.model.MapLocation;
 
 import android.content.SharedPreferences;
@@ -41,7 +43,7 @@ public class MapFragment extends SherlockListFragment
 /** Class used to implement the RPI campus map */
 {
 	
-	private ArrayList<MapLocation> places; // Necessary for MapListAdapter
+	private List<MapLocation> places; // Necessary for MapListAdapter
 	private ArrayAdapter<MapLocation> adapter;
 	//private MenuItem refreshbutton; // To be used when locations database is moved to server
 	

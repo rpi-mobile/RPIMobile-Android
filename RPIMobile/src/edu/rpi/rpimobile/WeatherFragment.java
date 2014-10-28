@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class WeatherFragment extends SherlockFragment {
 	private TextView cityview;
 	private TextView hilowview;
 	private ImageView iconview;
+	private ImageView background;
+	private String iconName;
 	private JSONObject jObj;
 	private Weather today;
 	private MenuItem refreshbutton;
@@ -57,6 +60,9 @@ public class WeatherFragment extends SherlockFragment {
 		cityview = (TextView) rootView.findViewById(R.id.City);
 		hilowview = (TextView) rootView.findViewById(R.id.hilow);
 		iconview = (ImageView) rootView.findViewById(R.id.weathericon);
+		background = (ImageView) rootView.findViewById(R.id.WeatherBackground);
+		
+		iconName = new String("00"); // default: set to no valid OpenWeatherMap iconName
 
 		// populate the "today" weather item with an instance of the Weathervars
 		// class and intital values
@@ -175,11 +181,11 @@ public class WeatherFragment extends SherlockFragment {
 				today.setCondition(jObj.getJSONArray("weather")
 						.getJSONObject(0).getString("main"));
 
-				String tempicon = jObj.getJSONArray("weather").getJSONObject(0)
+				iconName = jObj.getJSONArray("weather").getJSONObject(0)
 						.getString("icon");
-				logcat("Downloading icon: " + tempicon);
+				logcat("Downloading icon: " + iconName);
 				today.setIcon((new HttpClient()).getImage(image_URL_prefix
-						+ tempicon + ".png"));
+						+ iconName + ".png"));
 
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -230,6 +236,7 @@ public class WeatherFragment extends SherlockFragment {
 					Bitmap img = BitmapFactory.decodeByteArray(today.getIcon(),
 							0, today.getIcon().length);
 					iconview.setImageBitmap(img);
+					setDisplayBackground(Integer.parseInt(iconName.substring(0, 2))); // only the first two characters are digits
 				} else if (!onCreateViewFirstRun)
 				// we don't want this message to display when we KNOW it WILL
 				// fail
@@ -250,6 +257,43 @@ public class WeatherFragment extends SherlockFragment {
 					Toast.LENGTH_SHORT).show();
 		}
 
+	}
+	
+	public void setDisplayBackground(int icon_id)
+	{
+		// TODO: add more drawables for each condition below (to eliminate duplicates and make the app more exciting)
+		switch(icon_id) // OpenWeatherMap's icon id codes for:
+		{
+		case 1: // clear skies
+			background.setImageResource(R.drawable.biotech);
+			break;
+		case 2: // few clouds
+			background.setImageResource(R.drawable.biotech);
+			break;
+		case 3: // scattered clouds
+			background.setImageResource(R.drawable.quad);
+			break;
+		case 4: // broken clouds
+			background.setImageResource(R.drawable.quad);
+			break;
+		case 9: // shower rain
+			background.setImageResource(R.drawable.quad);
+			break;
+		case 10: // rain
+			background.setImageResource(R.drawable.quad);
+			break;
+		case 11: // thunderstorm
+			background.setImageResource(R.drawable.quad);
+			break;
+		case 13: // snow
+			background.setImageResource(R.drawable.quad);
+			break;
+		case 50: // mist
+			background.setImageResource(R.drawable.quad);
+			break;
+		default: // unknown parsing
+			break;
+		}
 	}
 
 	// class to convert temperature

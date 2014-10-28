@@ -60,7 +60,7 @@ public class ViewMapFragment extends SupportMapFragment implements OnCreateOptio
     {
     	super.onCreateView(inflater, container, savedInstanceState);
     	View rootView = inflater.inflate(R.layout.viewmap_fragment, container, false);
-    	map = ((SupportMapFragment) mActivity.getSupportFragmentManager().findFragmentById(R.id.mapview)).getMap();
+    	map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapview)).getMap();
     	map.setMyLocationEnabled(true);
     	map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationCoords, 17));
     	Marker currMarker = map.addMarker(new MarkerOptions().title(locationName).position(locationCoords));
@@ -80,16 +80,6 @@ public class ViewMapFragment extends SupportMapFragment implements OnCreateOptio
         mActivity = (SherlockFragmentActivity)activity;
 
         super.onAttach(activity);
-    }
-    
-    @Override
-    public void onDestroyView()
-    {
-    	super.onDestroyView();
-    	FragmentManager fm = getSherlockActivity().getSupportFragmentManager();
-    	FragmentTransaction ft = fm.beginTransaction();
-    	ft.remove(fm.findFragmentById(R.id.mapview));
-    	ft.commit();
     }
 
     @Override

@@ -37,15 +37,14 @@ public class MainActivity extends SherlockFragmentActivity
     private String actiontitle;
     private String[] title;
     private int[] icon;
-    private Fragment weatherFragment = new WeatherFragment();  //Formerly Fragment1
-    private Fragment laundryFragment = new LaundryFragment();  //Formerly Fragment2
-    private Fragment twitterFragment = new TwitterFragment();  //Formerly Fragment3
-    private Fragment athleticsFragment = new AthleticsFragment();  //Formerly Fragment4
-    private Fragment eventsFragment = new EventsFragment();  //Formerly Fragment5
+    private Fragment weatherFragment = new WeatherFragment();
+    private Fragment laundryFragment = new LaundryFragment();
+    private Fragment twitterFragment = new TwitterFragment();
+    private Fragment athleticsFragment = new AthleticsFragment();
+    private Fragment eventsFragment = new EventsFragment();
     private Fragment mapFragment = new MapFragment();
     private Fragment shuttlesFragment = new ShuttlesFragment();
     private Fragment tvguideFragment = new TVGuideFragment();
-    //private Fragment exampleFragment = new ExampleFragment();  //Formerly Fragment6
     
     //Initial function
     @Override

@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -36,7 +38,7 @@ import edu.rpi.rpimobile.model.TVChannel;
 public class TVGuideFragment extends SherlockFragment
 /** Class used to implement the TV Guide feature */
 {
-	private ArrayList<TVChannel> channels;
+	private List<TVChannel> channels;
 	private TVGuideListAdapter listadapter;
 	
 	public TVGuideFragment()

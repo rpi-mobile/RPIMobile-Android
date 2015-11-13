@@ -3,8 +3,6 @@ package edu.rpi.rpimobile;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import edu.rpi.rpimobile.model.Weather;
-
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +23,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
+import edu.rpi.rpimobile.model.Weather;
 
 //Weather Fragment
 public class WeatherFragment extends SherlockFragment {
@@ -134,7 +133,7 @@ public class WeatherFragment extends SherlockFragment {
 	// AsyncTask thread to download weather data
 	private class JSONWeatherTask extends AsyncTask<Void, Void, Weather> {
 
-		private static final String troyID = "http://api.openweathermap.org/data/2.5/weather?id=5141502";
+		private static final String troyID = "http://api.openweathermap.org/data/2.5/weather?id=5141502&appid=9ca7e5901a14b661945c389c99d30db4";
 		private static final String image_URL_prefix = "http://openweathermap.org/img/w/";
 
 		// before the thread is executed set the action bar to show

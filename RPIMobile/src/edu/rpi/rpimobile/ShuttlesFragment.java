@@ -60,8 +60,9 @@ import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Watson.OnCreateOptionsMenuListener;
+import android.support.v4.app.Watson.OnOptionsItemSelectedListener;
+import android.support.v4.app.Watson.OnPrepareOptionsMenuListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,9 +85,6 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import edu.rpi.rpimobile.model.Shuttle;
 import edu.rpi.rpimobile.model.ShuttlesRoutes;
-import static android.support.v4.app.Watson.OnCreateOptionsMenuListener;
-import static android.support.v4.app.Watson.OnOptionsItemSelectedListener;
-import static android.support.v4.app.Watson.OnPrepareOptionsMenuListener;
 
 public class ShuttlesFragment extends SupportMapFragment implements OnCreateOptionsMenuListener,
 																	OnPrepareOptionsMenuListener,

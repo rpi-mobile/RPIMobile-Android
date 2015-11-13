@@ -12,9 +12,7 @@ import java.util.List;
 
 import org.apache.http.util.ByteArrayBuffer;
 
-import edu.rpi.rpimobile.model.Tweet;
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 import android.content.Context;
@@ -35,6 +33,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
+import edu.rpi.rpimobile.model.Tweet;
 
 
 

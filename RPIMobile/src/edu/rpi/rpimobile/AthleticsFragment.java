@@ -6,9 +6,6 @@ import java.util.List;
 import org.mcsoxford.rss.RSSFeed;
 import org.mcsoxford.rss.RSSItem;
 import org.mcsoxford.rss.RSSReader;
-import org.mcsoxford.rss.RSSReaderException;
-
-import edu.rpi.rpimobile.model.RSSArticle;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -26,6 +23,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
+import edu.rpi.rpimobile.model.RSSArticle;
 
 //Sports news feeds
 public class AthleticsFragment extends SherlockFragment

@@ -18,8 +18,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.rpi.rpimobile.model.MapLocation;
-
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -27,7 +25,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +35,8 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+
+import edu.rpi.rpimobile.model.MapLocation;
 
 public class MapFragment extends SherlockListFragment
 /** Class used to implement the RPI campus map */

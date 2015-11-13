@@ -8,10 +8,8 @@
 
 package edu.rpi.rpimobile;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.rpi.rpimobile.model.TVChannel;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import edu.rpi.rpimobile.model.TVChannel;
 
 public class TVGuideListAdapter extends BaseAdapter
 {

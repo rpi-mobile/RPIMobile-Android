@@ -26,7 +26,7 @@ Upcoming features:
  - MorningMail
 
 
-This application is currently released as version 1.o.5 on the Google Play Store.
+This application is currently released as version 1.0.6 on the Google Play Store.
 
 This application is licensed as stated in LICENSE.txt
 
